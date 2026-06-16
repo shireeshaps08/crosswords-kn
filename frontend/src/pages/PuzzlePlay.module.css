@@ -1,0 +1,17 @@
+.container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+.loading { text-align: center; padding: 4rem; color: var(--color-muted); font-size: 1.2rem; }
+.header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+.header h2 { font-size: 1.5rem; color: var(--color-primary); }
+.sub { color: var(--color-muted); font-size: 0.9rem; }
+.stats { display: flex; gap: 1rem; align-items: center; font-size: 0.95rem; }
+.done { color: var(--color-correct); font-weight: 700; }
+.wordStat { color: var(--color-primary); font-weight: 600; }
+.banner { background: #d5f5e3; border: 1px solid #27ae60; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.bannerStats { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 1rem; }
+.bannerStats strong { color: var(--color-primary); }
+.bannerCta { font-size: 0.9rem; color: var(--color-muted); }
+.bannerCta a { color: var(--color-primary); font-weight: 600; text-decoration: none; }
+.bannerCta a:hover { text-decoration: underline; }
+.playArea { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+.sidebar { background: var(--color-surface); border-radius: var(--radius); padding: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); max-height: 80vh; overflow-y: auto; }
+@media (max-width: 800px) { .playArea { grid-template-columns: 1fr; } }

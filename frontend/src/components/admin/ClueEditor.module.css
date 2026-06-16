@@ -1,0 +1,16 @@
+.editor { display: flex; flex-direction: column; gap: 1.5rem; }
+.group { display: flex; flex-direction: column; gap: 0.75rem; }
+.groupLabel { font-size: 0.85rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; padding-bottom: 0.25rem; border-bottom: 2px solid var(--color-primary); }
+
+.row { display: flex; gap: 0.5rem; align-items: flex-start; }
+.badge { background: var(--color-primary); color: white; font-size: 0.75rem; font-weight: 700; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.3rem; }
+
+.fields { display: flex; flex-direction: column; gap: 0.35rem; flex: 1; }
+.answerRow { display: flex; gap: 0.5rem; align-items: center; }
+.answer { font-family: var(--font-kn); font-size: 1rem; flex: 1; }
+.lenOk { font-size: 0.75rem; color: var(--color-correct); font-weight: 700; white-space: nowrap; }
+.lenBad { font-size: 0.75rem; color: var(--color-incorrect); font-weight: 700; white-space: nowrap; }
+.clue { font-family: var(--font-kn); font-size: 0.95rem; }
+.clueEn { font-size: 0.85rem; color: var(--color-muted); }
+
+.empty { color: var(--color-muted); font-size: 0.95rem; padding: 1rem 0; }

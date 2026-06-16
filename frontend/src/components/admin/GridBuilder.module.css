@@ -1,0 +1,41 @@
+.wrapper { display: flex; flex-direction: column; gap: 0.5rem; }
+.hint { font-size: 0.8rem; color: var(--color-muted); }
+.slotCount { font-size: 0.85rem; color: var(--color-primary); font-weight: 600; }
+
+.grid {
+  display: grid;
+  gap: 2px;
+  background: #555;
+  border: 2px solid #555;
+  width: fit-content;
+  user-select: none;
+}
+
+.cell {
+  width: 44px;
+  height: 44px;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+}
+.cell:hover { background: #e8f4fd; }
+.cell.blocked { background: #333; cursor: pointer; }
+.cell.blocked:hover { background: #555; }
+
+.num {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .cell { width: 34px; height: 34px; }
+}

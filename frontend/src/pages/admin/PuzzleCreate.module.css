@@ -1,0 +1,80 @@
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+.topBar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; }
+.topBar h2 { font-size: 1.5rem; color: var(--color-primary); }
+
+.steps { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.stepLabel { font-size: 0.8rem; color: var(--color-muted); background: var(--color-surface); border: 1px solid var(--color-border); padding: 0.3rem 0.75rem; border-radius: 20px; }
+.activeStep { background: var(--color-primary); color: white; border-color: var(--color-primary); font-weight: 600; }
+
+.meta { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; margin-bottom: 1rem; background: var(--color-surface); padding: 1rem; border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.meta label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; font-weight: 600; }
+.meta select { font-family: var(--font-kn); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 0.5rem 0.75rem; font-size: 1rem; background: white; }
+
+.errors { background: #fdedec; border: 1px solid #f5b7b1; border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 1rem; list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.errors li { color: var(--color-incorrect); font-size: 0.9rem; }
+.errors li::before { content: '• '; }
+
+.stepContent { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.sizeRow { display: flex; gap: 1rem; }
+.sizeRow label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
+.sizeRow input { width: 70px; text-align: center; }
+
+.sectionLabel { font-size: 0.85rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+
+.cluesLayout { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+.gridPreviewSmall { position: sticky; top: 80px; }
+.clueEditorWrap { background: var(--color-surface); border-radius: var(--radius); padding: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); max-height: 75vh; overflow-y: auto; }
+
+.navRow { display: flex; gap: 0.75rem; padding-top: 0.5rem; }
+.btnPrimary { background: var(--color-primary); color: white; padding: 0.6rem 1.5rem; font-weight: 600; }
+.btnPrimary:hover { background: var(--color-primary-dark); }
+.btnSecondary { background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); padding: 0.6rem 1.5rem; }
+.btnSecondary:hover { background: #f0f0f0; }
+.btnPublish { background: var(--color-correct); color: white; padding: 0.6rem 1.75rem; font-weight: 700; font-size: 1rem; }
+.btnPublish:hover:not(:disabled) { background: #1e8449; }
+.btnPublish:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.previewArea { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+.previewClues { background: var(--color-surface); border-radius: var(--radius); padding: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.previewClues h4 { color: var(--color-primary); font-size: 0.9rem; margin: 0.75rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.previewClues ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; }
+.previewClues em { color: var(--color-muted); font-size: 0.8rem; }
+.noClues { color: var(--color-muted); font-size: 0.85rem; font-style: italic; }
+.empty { color: #e67e22; }
+.answerHint { color: var(--color-correct); font-size: 0.8rem; font-weight: 600; }
+
+.previewGrid {
+  display: grid;
+  gap: 2px;
+  background: #333;
+  border: 2px solid #333;
+  width: fit-content;
+}
+.previewCell {
+  width: 44px;
+  height: 44px;
+  background: white;
+  position: relative;
+}
+.previewCellBlocked {
+  width: 44px;
+  height: 44px;
+  background: #333;
+}
+.previewCellNum {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #333;
+}
+
+@media (max-width: 700px) {
+  .meta { grid-template-columns: 1fr; }
+  .cluesLayout { grid-template-columns: 1fr; }
+  .previewArea { grid-template-columns: 1fr; }
+  .gridPreviewSmall { position: static; }
+}

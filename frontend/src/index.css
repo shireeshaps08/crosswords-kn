@@ -1,0 +1,49 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --color-bg: #fdf6e3;
+  --color-surface: #ffffff;
+  --color-primary: #c0392b;
+  --color-primary-dark: #96281b;
+  --color-accent: #e67e22;
+  --color-text: #2c3e50;
+  --color-muted: #7f8c8d;
+  --color-border: #bdc3c7;
+  --color-correct: #27ae60;
+  --color-incorrect: #e74c3c;
+  --color-selected: #3498db;
+  --color-highlighted: #aed6f1;
+  --font-kn: 'Noto Sans Kannada', sans-serif;
+  --radius: 6px;
+}
+
+body {
+  font-family: var(--font-kn);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  cursor: pointer;
+  font-family: var(--font-kn);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  transition: background 0.15s;
+}
+
+input {
+  font-family: var(--font-kn);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input:focus { outline: 2px solid var(--color-selected); }
