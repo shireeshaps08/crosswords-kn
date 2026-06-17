@@ -62,8 +62,7 @@ export default function PuzzleCreate() {
     setStep('preview');
   }
 
-  async function handlePublish() {
-    // Full validation only at publish time
+  async function savePuzzle(publish: boolean) {
     const errs = validatePuzzle(slots);
     if (!title.trim()) errs.unshift('English title is required');
     if (!titleKn.trim()) errs.unshift('Kannada title is required');
@@ -79,6 +78,7 @@ export default function PuzzleCreate() {
       await api.post('/puzzles', {
         title, title_kn: titleKn, difficulty,
         grid: numberedGrid, clues: cluesObj, solution,
+        published: publish,
       });
       navigate('/admin');
     } catch (err: any) {
@@ -231,8 +231,11 @@ export default function PuzzleCreate() {
           </div>
           <div className={styles.navRow}>
             <button className={styles.btnSecondary} onClick={() => setStep('clues')}>← Clues</button>
-            <button className={styles.btnPublish} onClick={handlePublish} disabled={saving}>
-              {saving ? 'ಉಳಿಸಲಾಗುತ್ತಿದೆ...' : '✅ Publish Puzzle'}
+            <button className={styles.btnDraft} onClick={() => savePuzzle(false)} disabled={saving}>
+              {saving ? 'ಉಳಿಸಲಾಗುತ್ತಿದೆ...' : '📝 ಡ್ರಾಫ್ಟ್ ಉಳಿಸಿ'}
+            </button>
+            <button className={styles.btnPublish} onClick={() => savePuzzle(true)} disabled={saving}>
+              {saving ? 'ಉಳಿಸಲಾಗುತ್ತಿದೆ...' : '✅ ಪ್ರಕಟಿಸಿ'}
             </button>
           </div>
         </div>

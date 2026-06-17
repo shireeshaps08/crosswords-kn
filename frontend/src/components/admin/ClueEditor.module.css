@@ -14,3 +14,39 @@
 .clueEn { font-size: 0.85rem; color: var(--color-muted); }
 
 .empty { color: var(--color-muted); font-size: 0.95rem; padding: 1rem 0; }
+
+.nudiToolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: #fef9e7;
+  border: 1px solid #f0d070;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+}
+.nudiToggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nudiToggleLabel input[type='checkbox'] { width: 16px; height: 16px; cursor: pointer; }
+.nudiHint { font-size: 0.78rem; color: var(--color-muted); font-family: var(--font-kn); }
+
+.nudiInput {
+  font-family: monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+  border: 1px dashed #f0d070;
+  background: #fefdf5;
+  color: #7a6000;
+  border-radius: var(--radius);
+  padding: 0.4rem 0.6rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.nudiInput:focus { outline: 2px solid #f0d070; border-color: #d4a800; }

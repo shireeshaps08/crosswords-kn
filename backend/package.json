@@ -7,21 +7,24 @@
     "start": "node dist/index.js",
     "db:migrate": "node dist/db/migrate.js",
     "db:seed": "node dist/db/seed.js",
-    "admin:create": "node dist/db/create-admin.js"
+    "admin:create": "node dist/db/create-admin.js",
+    "parser:ingest": "ts-node --transpile-only src/parser/ingest-cli.ts"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "compression": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "compression": "^1.7.4",
     "express-rate-limit": "^7.1.5",
     "express-validator": "^7.0.1",
+    "fast-xml-parser": "^5.9.1",
     "helmet": "^7.1.0",
     "ioredis": "^5.11.1",
-    "rate-limit-redis": "^4.2.0",
     "jsonwebtoken": "^9.0.2",
+    "jszip": "^3.10.1",
     "pg": "^8.11.3",
+    "rate-limit-redis": "^4.2.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

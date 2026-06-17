@@ -4,8 +4,9 @@ const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
 
 export const redis = new Redis(redisUrl, {
   maxRetriesPerRequest: 3,
-  enableReadyCheck: true,
+  enableReadyCheck: false,
   lazyConnect: true,
+  enableOfflineQueue: false,
 });
 
 redis.on('error', err => console.error('Redis error:', err.message));
@@ -19,14 +20,16 @@ export const TTL = {
 };
 
 export async function cacheGet<T>(key: string): Promise<T | null> {
-  const val = await redis.get(key);
-  return val ? (JSON.parse(val) as T) : null;
+  try {
+    const val = await redis.get(key);
+    return val ? (JSON.parse(val) as T) : null;
+  } catch { return null; }
 }
 
 export async function cacheSet(key: string, data: unknown, ttl: number) {
-  await redis.set(key, JSON.stringify(data), 'EX', ttl);
+  try { await redis.set(key, JSON.stringify(data), 'EX', ttl); } catch { /* no-op */ }
 }
 
 export async function cacheDel(key: string) {
-  await redis.del(key);
+  try { await redis.del(key); } catch { /* no-op */ }
 }

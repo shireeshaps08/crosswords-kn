@@ -1,0 +1,48 @@
+.draftBadge {
+  margin-left: 0.75rem;
+  background: #fef9e7;
+  color: #d68910;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btnPublish {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btnPublish:hover { background: var(--color-primary-dark); }
+.btnPublish:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btnUnpublish {
+  background: #eaf4fb;
+  color: #2980b9;
+  border: 1px solid #aed6f1;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btnUnpublish:hover { background: #d6eaf8; }
+.btnUnpublish:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.backLink {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+.backLink:hover { color: var(--color-primary); }

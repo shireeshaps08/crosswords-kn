@@ -32,6 +32,9 @@
 .btnPrimary:hover { background: var(--color-primary-dark); }
 .btnSecondary { background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); padding: 0.6rem 1.5rem; }
 .btnSecondary:hover { background: #f0f0f0; }
+.btnDraft { background: var(--color-surface); border: 2px solid var(--color-muted); color: var(--color-text); padding: 0.6rem 1.5rem; font-weight: 600; font-size: 1rem; }
+.btnDraft:hover:not(:disabled) { background: #f0f0f0; border-color: var(--color-text); }
+.btnDraft:disabled { opacity: 0.6; cursor: not-allowed; }
 .btnPublish { background: var(--color-correct); color: white; padding: 0.6rem 1.75rem; font-weight: 700; font-size: 1rem; }
 .btnPublish:hover:not(:disabled) { background: #1e8449; }
 .btnPublish:disabled { opacity: 0.6; cursor: not-allowed; }

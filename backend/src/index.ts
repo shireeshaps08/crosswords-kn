@@ -30,11 +30,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// Redis-backed rate limiters — counters survive restarts and work across multiple instances
-const redisStore = () =>
-  new RedisStore({
-    sendCommand: (...args: string[]) => (redis as any).call(...args),
-  });
+// Redis-backed rate limiters — fall back to memory store when Redis is unavailable
+const redisStore = () => {
+  if ((redis as any).status !== 'ready') return undefined;
+  try {
+    return new RedisStore({ sendCommand: (...args: string[]) => (redis as any).call(...args) });
+  } catch { return undefined; }
+};
 
 // General API: 200 req / 15 min
 app.use(

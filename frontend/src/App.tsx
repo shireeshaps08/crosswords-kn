@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import PuzzleCreate from './pages/admin/PuzzleCreate';
+import PuzzlePreview from './pages/admin/PuzzlePreview';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/puzzle/new" element={<AdminRoute><PuzzleCreate /></AdminRoute>} />
+        <Route path="/admin/preview/:id" element={<AdminRoute><PuzzlePreview /></AdminRoute>} />
       </Routes>
     </>
   );

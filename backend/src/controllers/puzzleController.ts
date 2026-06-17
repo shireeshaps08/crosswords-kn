@@ -46,20 +46,22 @@ export async function getPuzzle(req: Request, res: Response) {
 }
 
 export async function createPuzzle(req: Request, res: Response) {
-  const { title, title_kn, difficulty, grid, clues, solution } = req.body;
+  const { title, title_kn, difficulty, grid, clues, solution, published = false } = req.body;
   const { rows } = await pool.query(
     `INSERT INTO puzzles (title, title_kn, difficulty, grid, clues, solution, created_by, published)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,true) RETURNING id`,
-    [title, title_kn, difficulty, JSON.stringify(grid), JSON.stringify(clues), JSON.stringify(solution), req.user!.sub]
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`,
+    [title, title_kn, difficulty, JSON.stringify(grid), JSON.stringify(clues), JSON.stringify(solution), req.user!.sub, Boolean(published)]
   );
-  // Use SCAN instead of KEYS to avoid blocking Redis
-  let cursor = '0';
-  const keys: string[] = [];
-  do {
-    const [next, found] = await redis.scan(cursor, 'MATCH', 'puzzles:list:*', 'COUNT', 100);
-    cursor = next;
-    keys.push(...found);
-  } while (cursor !== '0');
-  if (keys.length) await redis.del(...keys);
+  // Only evict public list cache when actually publishing
+  if (published) {
+    let cursor = '0';
+    const keys: string[] = [];
+    do {
+      const [next, found] = await redis.scan(cursor, 'MATCH', 'puzzles:list:*', 'COUNT', 100);
+      cursor = next;
+      keys.push(...found);
+    } while (cursor !== '0');
+    if (keys.length) await redis.del(...keys);
+  }
   res.status(201).json({ id: rows[0].id });
 }

@@ -42,7 +42,18 @@ router.get('/puzzles',
   puzzle.listPuzzles
 );
 router.get('/puzzles/:id', isUUID, validate, puzzle.getPuzzle);
-router.post('/puzzles', requireAdmin, puzzle.createPuzzle);
+router.post('/puzzles',
+  requireAdmin,
+  body('title').trim().isString().isLength({ min: 1, max: 255 }),
+  body('title_kn').trim().isString().isLength({ min: 1, max: 255 }),
+  body('difficulty').isIn(['easy', 'medium', 'hard']),
+  body('grid').isArray({ min: 1 }),
+  body('clues').isObject(),
+  body('solution').isArray({ min: 1 }),
+  body('published').optional().isBoolean().toBoolean(),
+  validate,
+  puzzle.createPuzzle
+);
 
 // ── Sessions ──────────────────────────────────────────────────────────────────
 router.post('/puzzles/:puzzle_id/sessions', isPuzzleUUID, validate, optionalAuth, session.startSession);
@@ -59,8 +70,19 @@ router.patch('/sessions/:session_id',
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 router.get('/admin/puzzles', requireAdmin, admin.listAllPuzzles);
+router.get('/admin/puzzles/:id/preview', isUUID, validate, requireAdmin, admin.getPuzzleAdmin);
 router.delete('/admin/puzzles/:id', isUUID, validate, requireAdmin, admin.deletePuzzle);
 router.patch('/admin/puzzles/:id/publish', isUUID, validate, requireAdmin, admin.togglePublish);
+router.post('/admin/puzzles/import',
+  requireAdmin,
+  body('title').trim().isString().isLength({ min: 1, max: 255 }),
+  body('title_kn').trim().isString().isLength({ min: 1, max: 255 }),
+  body('difficulty').optional().isIn(['easy', 'medium', 'hard']),
+  body('blocked').isArray({ min: 1 }),
+  body('clues').isObject(),
+  validate,
+  admin.importPuzzle
+);
 
 // ── Leaderboard ───────────────────────────────────────────────────────────────
 router.get('/puzzles/:puzzle_id/leaderboard',

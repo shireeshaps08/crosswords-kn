@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { GridCell, ClueEntry, CellValue } from '../types';
 import styles from './CrosswordGrid.module.css';
@@ -12,11 +12,12 @@ interface Props {
   onCellChange: (update: CellValue) => void;
   correctCells?: Set<string>;
   completed?: boolean;
+  onCellToggleBlock?: (row: number, col: number) => void;
 }
 
 type Direction = 'across' | 'down';
 
-export default function CrosswordGrid({ grid, clues, userValues, onCellChange, correctCells, completed }: Props) {
+export default function CrosswordGrid({ grid, clues, userValues, onCellChange, correctCells, completed, onCellToggleBlock }: Props) {
   const [selected, setSelected] = useState<{ row: number; col: number } | null>(null);
   const [direction, setDirection] = useState<Direction>('across');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -79,7 +80,10 @@ export default function CrosswordGrid({ grid, clues, userValues, onCellChange, c
   }
 
   function handleCellClick(row: number, col: number) {
-    if (grid[row][col].blocked) return;
+    if (grid[row][col].blocked) {
+      onCellToggleBlock?.(row, col);
+      return;
+    }
     if (selected && (selected.row !== row || selected.col !== col)) {
       flushBuffer(selected.row, selected.col);
       resetBuffer();
@@ -90,6 +94,16 @@ export default function CrosswordGrid({ grid, clues, userValues, onCellChange, c
       setSelected({ row, col });
     }
     inputRef.current?.focus();
+    setTimeout(() => inputRef.current?.focus(), 0);
+  }
+
+  function handleCellDoubleClick(row: number, col: number) {
+    if (!onCellToggleBlock) return;
+    if (!grid[row][col].blocked) {
+      setSelected(null);
+      resetBuffer();
+    }
+    onCellToggleBlock(row, col);
   }
 
   // ── On-screen Kannada keyboard handlers ────────────────────────────────────
@@ -232,7 +246,7 @@ export default function CrosswordGrid({ grid, clues, userValues, onCellChange, c
     }
   }
 
-  useEffect(() => { inputRef.current?.focus(); }, [selected]);
+  // focus is handled directly in handleCellClick
 
   const activeClue = getActiveClue();
 
@@ -250,7 +264,7 @@ export default function CrosswordGrid({ grid, clues, userValues, onCellChange, c
         autoCorrect="off"
         autoCapitalize="off"
         spellCheck={false}
-        inputMode="none"
+        inputMode="text"
       />
 
       {activeClue && (
@@ -279,6 +293,7 @@ export default function CrosswordGrid({ grid, clues, userValues, onCellChange, c
                 [styles.correct]: isCorrect,
               })}
               onClick={() => handleCellClick(cell.row, cell.col)}
+              onDoubleClick={() => handleCellDoubleClick(cell.row, cell.col)}
             >
               {!cell.blocked && (
                 <>

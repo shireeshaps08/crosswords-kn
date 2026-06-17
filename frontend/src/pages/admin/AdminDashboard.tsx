@@ -16,10 +16,13 @@ interface PuzzleRow {
 
 const DIFF_LABEL: Record<string, string> = { easy: 'ಸುಲಭ', medium: 'ಮಧ್ಯಮ', hard: 'ಕಷ್ಟ' };
 
+type FilterTab = 'all' | 'draft' | 'published';
+
 export default function AdminDashboard() {
   const [puzzles, setPuzzles] = useState<PuzzleRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
+  const [filter, setFilter] = useState<FilterTab>('all');
 
   useEffect(() => {
     api.get('/admin/puzzles').then(r => setPuzzles(r.data.puzzles)).finally(() => setLoading(false));
@@ -40,12 +43,37 @@ export default function AdminDashboard() {
     setBusy(null);
   }
 
+  const filtered = puzzles.filter(p =>
+    filter === 'draft'     ? !p.published :
+    filter === 'published' ?  p.published : true
+  );
+
   return (
     <main className={styles.container}>
       <div className={styles.header}>
         <h2>Admin — ಪಜಲ್ ನಿರ್ವಹಣೆ</h2>
         <Link to="/admin/puzzle/new" className={styles.btnNew}>+ ಹೊಸ ಪಜಲ್</Link>
       </div>
+
+      {!loading && (
+        <div className={styles.filterTabs}>
+          {(['all', 'draft', 'published'] as FilterTab[]).map(f => {
+            const count = f === 'all' ? puzzles.length
+              : f === 'draft' ? puzzles.filter(p => !p.published).length
+              : puzzles.filter(p => p.published).length;
+            return (
+              <button
+                key={f}
+                className={`${styles.tab} ${filter === f ? styles.tabActive : ''}`}
+                onClick={() => setFilter(f)}
+              >
+                {f === 'all' ? 'ಎಲ್ಲ' : f === 'draft' ? '📝 ಡ್ರಾಫ್ಟ್' : '✅ ಪ್ರಕಟಿತ'}
+                <span className={styles.tabCount}>({count})</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {loading ? <p className={styles.msg}>ಲೋಡ್...</p> : (
         <table className={styles.table}>
@@ -60,14 +88,21 @@ export default function AdminDashboard() {
             </tr>
           </thead>
           <tbody>
-            {puzzles.length === 0 && (
+            {filtered.length === 0 && (
               <tr><td colSpan={6} className={styles.msg}>ಯಾವುದೇ ಪಜಲ್ ಇಲ್ಲ</td></tr>
             )}
-            {puzzles.map(p => (
+            {filtered.map(p => (
               <tr key={p.id}>
                 <td>
-                  <div className={styles.titleKn}>{p.title_kn}</div>
-                  <div className={styles.titleEn}>{p.title}</div>
+                  <a
+                    href={p.published ? `/puzzle/${p.id}` : `/admin/preview/${p.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.titleLink}
+                  >
+                    <div className={styles.titleKn}>{p.title_kn}</div>
+                    <div className={styles.titleEn}>{p.title}</div>
+                  </a>
                 </td>
                 <td><span className={`${styles.diff} ${styles[p.difficulty]}`}>{DIFF_LABEL[p.difficulty]}</span></td>
                 <td>
@@ -78,6 +113,14 @@ export default function AdminDashboard() {
                 <td>{p.play_count}</td>
                 <td className={styles.muted}>{p.created_by ?? '—'}</td>
                 <td className={styles.actions}>
+                  <a
+                    className={styles.btnPreview}
+                    href={`/admin/preview/${p.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    👁 Preview
+                  </a>
                   <button
                     className={styles.btnToggle}
                     onClick={() => handleTogglePublish(p.id)}
