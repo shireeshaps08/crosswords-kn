@@ -15,6 +15,7 @@ export default function PuzzlePlay() {
   const [userValues, setUserValues] = useState<Map<string, string>>(new Map());
   const [correctCells, setCorrectCells] = useState<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState({ correct: 0, total: 0, words: 0, totalWords: 0 });
   const [activeClue, setActiveClue] = useState<{ number: number; direction: 'across' | 'down' } | undefined>();
@@ -81,7 +82,8 @@ export default function PuzzlePlay() {
     const nextValues = new Map(userValues);
     const nextCorrect = new Set(correctCells);
 
-    for (const row of puzzle.grid) {
+    const src = puzzle.solution ?? puzzle.grid;
+    for (const row of src) {
       for (const cell of row) {
         if (!cell.blocked && cell.letter) {
           const k = `${cell.row},${cell.col}`;
@@ -94,6 +96,7 @@ export default function PuzzlePlay() {
 
     setUserValues(nextValues);
     setCorrectCells(nextCorrect);
+    setRevealed(true);
 
     try {
       const data = await submitCells(sessionId, updates, puzzle.solution ?? null, userValues);
@@ -136,7 +139,7 @@ export default function PuzzlePlay() {
             <span>ಸ್ಕೋರ್: <strong>{score}</strong></span>
             <span>ಪದಗಳು: <strong>{progress.words}/{progress.totalWords}</strong></span>
           </div>
-          {!user && (
+          {!user && !revealed && (
             <div className={styles.bannerCta}>
               ಸ್ಕೋರ್ ಉಳಿಸಲು <a href="/register">ನೋಂದಾಯಿಸಿ</a> ಅಥವಾ <a href="/login">ಲಾಗಿನ್</a> ಮಾಡಿ
             </div>

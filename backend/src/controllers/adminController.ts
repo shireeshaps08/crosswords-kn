@@ -107,11 +107,12 @@ export async function deletePuzzle(req: Request, res: Response) {
   const { id } = req.params;
   const { rowCount } = await pool.query(`DELETE FROM puzzles WHERE id = $1`, [id]);
   if (!rowCount) return res.status(404).json({ error: 'Puzzle not found' });
-  // Evict all caches that may reference this puzzle
-  await Promise.all([
-    scanDel('puzzles:list:*'),
-    redis.del(`puzzle:${id}`, `leaderboard:${id}`, 'leaderboard:global'),
-  ]);
+  try {
+    await Promise.all([
+      scanDel('puzzles:list:*'),
+      redis.del(`puzzle:${id}`, `leaderboard:${id}`, 'leaderboard:global'),
+    ]);
+  } catch { /* Redis unavailable — skip cache eviction */ }
   res.json({ success: true });
 }
 
@@ -122,11 +123,12 @@ export async function togglePublish(req: Request, res: Response) {
     [id]
   );
   if (!rows[0]) return res.status(404).json({ error: 'Puzzle not found' });
-  // Evict list cache so the change is immediately visible
-  await Promise.all([
-    scanDel('puzzles:list:*'),
-    redis.del(`puzzle:${id}`),
-  ]);
+  try {
+    await Promise.all([
+      scanDel('puzzles:list:*'),
+      redis.del(`puzzle:${id}`),
+    ]);
+  } catch { /* Redis unavailable — skip cache eviction */ }
   res.json({ id: rows[0].id, published: rows[0].published });
 }
 
@@ -171,7 +173,7 @@ export async function updatePuzzle(req: Request, res: Response) {
   vals.push(id);
 
   await pool.query(`UPDATE puzzles SET ${sets.join(', ')} WHERE id = $${i}`, vals);
-  await Promise.all([scanDel('puzzles:list:*'), redis.del(`puzzle:${id}`)]);
+  try { await Promise.all([scanDel('puzzles:list:*'), redis.del(`puzzle:${id}`)]); } catch { /* Redis unavailable */ }
   res.json({ success: true, id });
 }
 

@@ -34,13 +34,15 @@ export async function getPuzzle(req: Request, res: Response) {
   if (cached) return res.json(cached);
 
   const { rows } = await pool.query(
-    `SELECT id, title, title_kn, difficulty, grid, clues, created_at
+    `SELECT id, title, title_kn, difficulty, grid, clues, solution, created_at
      FROM puzzles WHERE id = $1 AND published = true`,
     [id]
   );
   if (!rows[0]) return res.status(404).json({ error: 'Puzzle not found' });
 
-  const payload = { puzzle: rows[0] };
+  const grid = rows[0].grid as any[][];
+  const totalCells = grid.flat().filter((c: any) => !c.blocked).length;
+  const payload = { puzzle: { ...rows[0], total_cells: totalCells } };
   await cacheSet(cacheKey, payload, TTL.PUZZLE);
   res.json(payload);
 }
@@ -52,16 +54,17 @@ export async function createPuzzle(req: Request, res: Response) {
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`,
     [title, title_kn, difficulty, JSON.stringify(grid), JSON.stringify(clues), JSON.stringify(solution), req.user!.sub, Boolean(published)]
   );
-  // Only evict public list cache when actually publishing
   if (published) {
-    let cursor = '0';
-    const keys: string[] = [];
-    do {
-      const [next, found] = await redis.scan(cursor, 'MATCH', 'puzzles:list:*', 'COUNT', 100);
-      cursor = next;
-      keys.push(...found);
-    } while (cursor !== '0');
-    if (keys.length) await redis.del(...keys);
+    try {
+      let cursor = '0';
+      const keys: string[] = [];
+      do {
+        const [next, found] = await redis.scan(cursor, 'MATCH', 'puzzles:list:*', 'COUNT', 100);
+        cursor = next;
+        keys.push(...found);
+      } while (cursor !== '0');
+      if (keys.length) await redis.del(...keys);
+    } catch { /* Redis unavailable */ }
   }
   res.status(201).json({ id: rows[0].id });
 }
