@@ -27,11 +27,13 @@
 .actions { display: flex; gap: 0.5rem; }
 .btnPreview { background: #f4f6f7; color: #555; border: 1px solid #d5d8dc; font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: var(--radius); text-decoration: none; }
 .btnPreview:hover { background: #e8eaeb; text-decoration: none; }
+.btnEdit { background: #fef9e7; color: #d68910; border: 1px solid #f9e79f; font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: var(--radius); }
+.btnEdit:hover { background: #fdebd0; }
 .btnToggle { background: #eaf4fb; color: #2980b9; border: 1px solid #aed6f1; font-size: 0.8rem; padding: 0.3rem 0.7rem; }
 .btnToggle:hover { background: #d6eaf8; }
 .btnDelete { background: #fdedec; color: var(--color-incorrect); border: 1px solid #f5b7b1; font-size: 0.8rem; padding: 0.3rem 0.7rem; }
 .btnDelete:hover { background: #fadbd8; }
-.btnToggle:disabled, .btnDelete:disabled { opacity: 0.5; cursor: not-allowed; }
+.btnToggle:disabled, .btnEdit:disabled, .btnDelete:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .msg { text-align: center; color: var(--color-muted); padding: 2rem; }
 

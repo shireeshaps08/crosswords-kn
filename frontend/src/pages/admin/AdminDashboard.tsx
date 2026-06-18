@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import styles from './AdminDashboard.module.css';
 
@@ -19,6 +19,7 @@ const DIFF_LABEL: Record<string, string> = { easy: 'ಸುಲಭ', medium: 'ಮ�
 type FilterTab = 'all' | 'draft' | 'published';
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
   const [puzzles, setPuzzles] = useState<PuzzleRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
@@ -121,6 +122,13 @@ export default function AdminDashboard() {
                   >
                     👁 Preview
                   </a>
+                  <button
+                    className={styles.btnEdit}
+                    onClick={() => navigate(`/admin/puzzle/${p.id}/edit`)}
+                    disabled={busy === p.id}
+                  >
+                    ✏️ Edit
+                  </button>
                   <button
                     className={styles.btnToggle}
                     onClick={() => handleTogglePublish(p.id)}

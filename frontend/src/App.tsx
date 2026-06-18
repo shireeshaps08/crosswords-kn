@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import PuzzleCreate from './pages/admin/PuzzleCreate';
 import PuzzlePreview from './pages/admin/PuzzlePreview';
+import PuzzleEdit from './pages/admin/PuzzleEdit';
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/puzzle/new" element={<AdminRoute><PuzzleCreate /></AdminRoute>} />
         <Route path="/admin/preview/:id" element={<AdminRoute><PuzzlePreview /></AdminRoute>} />
+        <Route path="/admin/puzzle/:id/edit" element={<AdminRoute><PuzzleEdit /></AdminRoute>} />
       </Routes>
     </>
   );

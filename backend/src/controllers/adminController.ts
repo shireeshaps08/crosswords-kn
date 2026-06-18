@@ -130,6 +130,51 @@ export async function togglePublish(req: Request, res: Response) {
   res.json({ id: rows[0].id, published: rows[0].published });
 }
 
+// ── Update an existing puzzle (clues, answers, title, difficulty) ─────────────
+export async function updatePuzzle(req: Request, res: Response) {
+  const { id } = req.params;
+  const { title, title_kn, difficulty, blocked, clues } = req.body as {
+    title?: string;
+    title_kn?: string;
+    difficulty?: 'easy' | 'medium' | 'hard';
+    blocked?: boolean[][];
+    clues?: { across: ClueInput[]; down: ClueInput[] };
+  };
+
+  const existing = await pool.query(`SELECT id FROM puzzles WHERE id = $1`, [id]);
+  if (!existing.rows[0]) return res.status(404).json({ error: 'Puzzle not found' });
+
+  let gridJson: string | undefined;
+  let solutionJson: string | undefined;
+  if (blocked) {
+    const rawGrid: GridCell[][] = blocked.map((row, r) =>
+      row.map((isBlocked, c) => ({ row: r, col: c, letter: '', blocked: isBlocked }))
+    );
+    const numberedGrid = applyNumbers(rawGrid);
+    const allClues: ClueInput[] = [...(clues?.across ?? []), ...(clues?.down ?? [])];
+    const solution = buildSolution(numberedGrid, allClues);
+    gridJson = JSON.stringify(numberedGrid);
+    solutionJson = JSON.stringify(solution);
+  }
+
+  const sets: string[] = [];
+  const vals: unknown[] = [];
+  let i = 1;
+  if (title)      { sets.push(`title=$${i++}`);      vals.push(title); }
+  if (title_kn)   { sets.push(`title_kn=$${i++}`);   vals.push(title_kn); }
+  if (difficulty) { sets.push(`difficulty=$${i++}`);  vals.push(difficulty); }
+  if (clues)      { sets.push(`clues=$${i++}::jsonb`); vals.push(JSON.stringify(clues)); }
+  if (gridJson)   { sets.push(`grid=$${i++}::jsonb`);  vals.push(gridJson); }
+  if (solutionJson){ sets.push(`solution=$${i++}::jsonb`); vals.push(solutionJson); }
+
+  if (sets.length === 0) return res.status(400).json({ error: 'Nothing to update' });
+  vals.push(id);
+
+  await pool.query(`UPDATE puzzles SET ${sets.join(', ')} WHERE id = $${i}`, vals);
+  await Promise.all([scanDel('puzzles:list:*'), redis.del(`puzzle:${id}`)]);
+  res.json({ success: true, id });
+}
+
 // ── Import a puzzle from a structured JSON payload ────────────────────────────
 // Body: { title, title_kn, difficulty, blocked, clues }
 //   blocked: boolean[][] — 9×9 (or N×M) true=black false=open

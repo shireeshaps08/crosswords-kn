@@ -1,0 +1,40 @@
+{
+  "puzzleId": 8888,
+  "tableIndex": 0,
+  "across": [
+    {
+      "number": 1,
+      "direction": "across",
+      "clueRaw": "PÀ£ÀßqÀ",
+      "length": 3
+    },
+    {
+      "number": 2,
+      "direction": "across",
+      "clueRaw": "¸ÀAUÀqÀ",
+      "length": 5
+    }
+  ],
+  "down": [
+    {
+      "number": 1,
+      "direction": "down",
+      "clueRaw": "£ÀqÉ",
+      "length": 4
+    },
+    {
+      "number": 2,
+      "direction": "down",
+      "clueRaw": "¨ÉAUÀ¼ÀÆgÀÄ",
+      "length": 6
+    }
+  ],
+  "warnings": [
+    {
+      "direction": "across",
+      "row": 3,
+      "rawText": "GARBLED no paren",
+      "reason": "does not match N.<text>(L) shape"
+    }
+  ]
+}

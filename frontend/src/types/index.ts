@@ -32,6 +32,8 @@ export interface Puzzle {
   grid: GridCell[][];
   clues: { across: ClueEntry[]; down: ClueEntry[] };
   created_at: string;
+  total_cells?: number;
+  solution?: { row: number; col: number; letter: string; blocked: boolean }[][];
 }
 
 export interface PuzzleSummary {

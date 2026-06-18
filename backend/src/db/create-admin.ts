@@ -10,7 +10,7 @@ async function createAdmin() {
   const { rows } = await pool.query(
     `INSERT INTO users (username, email, password_hash, role)
      VALUES ($1, $2, $3, 'admin')
-     ON CONFLICT (email) DO UPDATE SET role = 'admin'
+     ON CONFLICT (email) DO UPDATE SET role = 'admin', password_hash = EXCLUDED.password_hash
      RETURNING id, username, email, role`,
     [username, email, hash]
   );

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
+import { fetchPuzzles } from '../services/puzzleService';
 import { PuzzleSummary } from '../types';
 import styles from './PuzzleList.module.css';
 
@@ -13,8 +13,8 @@ export default function PuzzleList() {
 
   useEffect(() => {
     setLoading(true);
-    api.get('/puzzles', { params: difficulty ? { difficulty } : {} })
-      .then(r => setPuzzles(r.data.puzzles))
+    fetchPuzzles(difficulty ? { difficulty } : undefined)
+      .then(data => setPuzzles(data.puzzles))
       .finally(() => setLoading(false));
   }, [difficulty]);
 
