@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPuzzles } from '../../services/puzzleService';
 import { PuzzleSummary } from '../../types';
+import styles from '../admin/AdminDashboard.module.css';
 
 const DIFF_LABEL: Record<string, string> = { easy: 'ಸುಲಭ', medium: 'ಮಧ್ಯಮ', hard: 'ಕಷ್ಟ' };
 
@@ -14,30 +15,38 @@ export default function StaticAdmin() {
   }, []);
 
   return (
-    <main style={{ maxWidth: 800, margin: '2rem auto', padding: '0 1rem' }}>
-      <h2 style={{ marginBottom: '1rem' }}>ಪಜಲ್ ಪಟ್ಟಿ (Static)</h2>
-      {loading && <p>ಲೋಡ್ ಆಗುತ್ತಿದೆ...</p>}
-      {!loading && puzzles.length === 0 && <p>ಯಾವುದೇ ಪಜಲ್ ಇಲ್ಲ</p>}
+    <main className={styles.container}>
+      <div className={styles.header}>
+        <h2>Admin — ಪಜಲ್ ನಿರ್ವಹಣೆ</h2>
+        <span style={{ fontSize: '0.8rem', color: '#888' }}>Demo (static)</span>
+      </div>
+
+      {loading && <p className={styles.msg}>ಲೋಡ್ ಆಗುತ್ತಿದೆ...</p>}
+      {!loading && puzzles.length === 0 && <p className={styles.msg}>ಯಾವುದೇ ಪಜಲ್ ಇಲ್ಲ</p>}
       {!loading && puzzles.length > 0 && (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <table className={styles.table}>
           <thead>
-            <tr style={{ background: '#f4f4f4', textAlign: 'left' }}>
-              <th style={th}>ID</th>
-              <th style={th}>ಶೀರ್ಷಿಕೆ</th>
-              <th style={th}>Title</th>
-              <th style={th}>ಕಷ್ಟ</th>
-              <th style={th}>ಆಟ</th>
+            <tr>
+              <th>ಶೀರ್ಷಿಕೆ</th>
+              <th>ತೊಂದರೆ</th>
+              <th>ಕ್ರಿಯೆಗಳು</th>
             </tr>
           </thead>
           <tbody>
             {puzzles.map(p => (
-              <tr key={p.id} style={{ borderBottom: '1px solid #eee' }}>
-                <td style={td}>{p.id}</td>
-                <td style={td}>{p.title_kn}</td>
-                <td style={td}>{p.title}</td>
-                <td style={td}>{DIFF_LABEL[p.difficulty] ?? p.difficulty}</td>
-                <td style={td}>
-                  <Link to={`/puzzle/${p.id}`} style={{ color: '#1a73e8' }}>▶ ಆಡಿ</Link>
+              <tr key={p.id}>
+                <td>
+                  <div className={styles.titleKn}>{p.title_kn}</div>
+                  <div className={styles.titleEn}>{p.title}</div>
+                </td>
+                <td>
+                  <span className={`${styles.diff} ${styles[p.difficulty]}`}>
+                    {DIFF_LABEL[p.difficulty] ?? p.difficulty}
+                  </span>
+                </td>
+                <td className={styles.actions}>
+                  <Link to={`/puzzle/${p.id}`} className={styles.btnPreview}>▶ ಆಡಿ</Link>
+                  <Link to={`/manage-xk9p2/puzzle/${p.id}/edit`} className={styles.btnEdit}>✏️ Edit</Link>
                 </td>
               </tr>
             ))}
@@ -47,6 +56,3 @@ export default function StaticAdmin() {
     </main>
   );
 }
-
-const th: React.CSSProperties = { padding: '0.6rem 0.75rem', fontWeight: 600, fontSize: '0.85rem' };
-const td: React.CSSProperties = { padding: '0.6rem 0.75rem', fontSize: '0.9rem' };

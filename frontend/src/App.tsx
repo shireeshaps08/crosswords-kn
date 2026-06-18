@@ -2,6 +2,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import PuzzleList from './pages/PuzzleList';
 import PuzzlePlay from './pages/PuzzlePlay';
 import StaticAdmin from './pages/admin/StaticAdmin';
+import StaticPuzzleEdit from './pages/admin/StaticPuzzleEdit';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/puzzles" element={<PuzzleList />} />
         <Route path="/puzzle/:id" element={<PuzzlePlay />} />
         <Route path="/manage-xk9p2" element={<StaticAdmin />} />
+        <Route path="/manage-xk9p2/puzzle/:id/edit" element={<StaticPuzzleEdit />} />
       </Routes>
     </>
   );
