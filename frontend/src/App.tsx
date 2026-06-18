@@ -1,33 +1,20 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import AdminRoute from './components/AdminRoute';
-import Home from './pages/Home';
+import { Routes, Route, Link } from 'react-router-dom';
 import PuzzleList from './pages/PuzzleList';
 import PuzzlePlay from './pages/PuzzlePlay';
-import Leaderboard from './pages/Leaderboard';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import PuzzleCreate from './pages/admin/PuzzleCreate';
-import PuzzlePreview from './pages/admin/PuzzlePreview';
-import PuzzleEdit from './pages/admin/PuzzleEdit';
+import StaticAdmin from './pages/admin/StaticAdmin';
 
 export default function App() {
   return (
     <>
-      <Navbar />
+      <nav style={{ padding: '0.75rem 1.5rem', background: '#1a1a2e', color: '#fff', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+        <Link to="/" style={{ color: '#fff', fontWeight: 700, textDecoration: 'none', fontSize: '1.1rem' }}>ಪ್ರಜಾವಾಣಿ ಪದಬಂಧ</Link>
+        <Link to="/puzzles" style={{ color: '#ccc', textDecoration: 'none' }}>ಪಜಲ್‌ಗಳು</Link>
+      </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<PuzzleList />} />
         <Route path="/puzzles" element={<PuzzleList />} />
         <Route path="/puzzle/:id" element={<PuzzlePlay />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-        <Route path="/admin/puzzle/new" element={<AdminRoute><PuzzleCreate /></AdminRoute>} />
-        <Route path="/admin/preview/:id" element={<AdminRoute><PuzzlePreview /></AdminRoute>} />
-        <Route path="/admin/puzzle/:id/edit" element={<AdminRoute><PuzzleEdit /></AdminRoute>} />
+        <Route path="/manage-xk9p2" element={<StaticAdmin />} />
       </Routes>
     </>
   );
