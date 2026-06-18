@@ -9,7 +9,7 @@
 const puzzle6381 = {
   id: '6381',
   title: 'Prajavani Crossword 6381',
-  title_kn: 'ಪ್ರಜಾವಾಣಿ ಪದಬಂಧ ೬೩೮೧',
+  title_kn: 'ಪ್ರಜಾವಾಣಿ ಪದಬಂಧ',
   difficulty: 'medium',
 
   across_clues: [
