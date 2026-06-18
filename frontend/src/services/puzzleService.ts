@@ -1,5 +1,5 @@
 import api from './api';
-import { Puzzle, PuzzleSummary, CellValue } from '../types';
+import { Puzzle, PuzzleSummary, CellValue } from '../types/index';
 
 const STATIC = import.meta.env.VITE_STATIC === 'true';
 const BASE = import.meta.env.BASE_URL ?? '/';
@@ -19,6 +19,7 @@ export async function fetchPuzzles(params?: { difficulty?: string }): Promise<{ 
 export async function fetchPuzzle(id: string): Promise<{ puzzle: Puzzle & { solution?: { row: number; col: number; letter: string; blocked: boolean }[][]; total_cells?: number } }> {
   if (STATIC) {
     const r = await fetch(`${BASE}data/puzzle-${id}.json`);
+    if (!r.ok) throw new Error(`Puzzle ${id} not found`);
     return r.json();
   }
   return api.get(`/puzzles/${id}`).then(r => r.data);
@@ -37,7 +38,6 @@ export async function createSession(
 export async function submitCells(
   sessionId: string,
   updates: CellValue[],
-  // Used only in static mode for local checking
   solution: { row: number; col: number; letter: string; blocked: boolean }[][] | null,
   allValues: Map<string, string>,
 ): Promise<{ correct_cells: number; total_cells: number; words_completed: number; total_words?: number; completed: boolean; score?: number }> {
@@ -46,8 +46,7 @@ export async function submitCells(
     const totalCells = openCells.length;
     let correct = 0;
     for (const cell of openCells) {
-      const key = `${cell.row},${cell.col}`;
-      if (allValues.get(key) === cell.letter) correct++;
+      if (allValues.get(`${cell.row},${cell.col}`) === cell.letter) correct++;
     }
     return {
       correct_cells: correct,

@@ -1,0 +1,15 @@
+{
+  "puzzleId": 9999,
+  "tableIndex": 0,
+  "rows": 1,
+  "cols": 1,
+  "cells": [
+    [
+      {
+        "row": 0,
+        "col": 0,
+        "blocked": true
+      }
+    ]
+  ]
+}

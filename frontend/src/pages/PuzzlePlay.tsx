@@ -1,64 +1,48 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchPuzzle, createSession, submitCells } from '../services/puzzleService';
 import { useAuthStore } from '../store/authStore';
 import { Puzzle, CellValue, ClueEntry } from '../types';
-import { fetchPuzzle, createSession, submitCells } from '../services/puzzleService';
 import CrosswordGrid from '../components/CrosswordGrid';
 import CluePanel from '../components/CluePanel';
 import styles from './PuzzlePlay.module.css';
-
-type SolutionGrid = { row: number; col: number; letter: string; blocked: boolean }[][];
 
 export default function PuzzlePlay() {
   const { id } = useParams<{ id: string }>();
   const { user, initGuest } = useAuthStore();
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
-  const [solution, setSolution] = useState<SolutionGrid | null>(null);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [userValues, setUserValues] = useState<Map<string, string>>(new Map());
   const [correctCells, setCorrectCells] = useState<Set<string>>(new Set());
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [progress, setProgress] = useState({ correct: 0, total: 0, words: 0, totalWords: 0 });
-  const [elapsed, setElapsed] = useState(0);
   const [activeClue, setActiveClue] = useState<{ number: number; direction: 'across' | 'down' } | undefined>();
   const pendingRef = useRef<CellValue[]>([]);
   const flushTimer = useRef<ReturnType<typeof setTimeout>>();
-  const startTimeRef = useRef<number>(Date.now());
 
   useEffect(() => { if (!user) initGuest(); }, [user, initGuest]);
 
   useEffect(() => {
     if (!id) return;
-    fetchPuzzle(id).then(r => {
-      setPuzzle(r.puzzle);
-      if (r.puzzle.solution) setSolution(r.puzzle.solution as SolutionGrid);
-    });
+    fetchPuzzle(id).then(r => setPuzzle(r.puzzle));
   }, [id]);
 
   useEffect(() => {
     if (!puzzle || !id) return;
     const totalWords = (puzzle.clues.across?.length ?? 0) + (puzzle.clues.down?.length ?? 0);
-    const totalCells = (puzzle as any).total_cells ?? 0;
-    createSession(id, totalCells).then(r => {
+    createSession(id, puzzle.total_cells ?? 0).then(r => {
       setSessionId(r.session_id);
       setProgress({ correct: 0, total: r.total_cells, words: 0, totalWords });
-      startTimeRef.current = Date.now();
     });
   }, [puzzle, id]);
-
-  useEffect(() => {
-    if (completed) return;
-    const t = setInterval(() => setElapsed(Math.floor((Date.now() - startTimeRef.current) / 1000)), 1000);
-    return () => clearInterval(t);
-  }, [completed]);
 
   const flushUpdates = useCallback(async () => {
     if (!sessionId || pendingRef.current.length === 0) return;
     const updates = [...pendingRef.current];
     pendingRef.current = [];
     try {
-      const { data } = await submitCells(sessionId, updates, solution, userValues).then(d => ({ data: d }));
+      const data = await submitCells(sessionId, updates, puzzle?.solution ?? null, userValues);
       setProgress(p => ({
         ...p,
         correct: data.correct_cells,
@@ -68,19 +52,17 @@ export default function PuzzlePlay() {
       }));
       if (data.completed) { setCompleted(true); setScore(data.score ?? 0); }
       if (data.correct_cells > 0) {
-        setCorrectCells(() => {
-          const next = new Set<string>();
-          for (const [key, value] of userValues) {
-            const [r, c] = key.split(',').map(Number);
-            if (solution?.[r]?.[c]?.letter === value || puzzle?.grid[r]?.[c]?.letter === value) {
-              next.add(key);
-            }
+        setCorrectCells(prev => {
+          const next = new Set(prev);
+          for (const u of updates) {
+            const k = `${u.row},${u.col}`;
+            if (userValues.get(k) === puzzle?.grid[u.row][u.col]?.letter) next.add(k);
           }
           return next;
         });
       }
     } catch { /* retry on next change */ }
-  }, [sessionId, userValues, puzzle, solution]);
+  }, [sessionId, userValues, puzzle]);
 
   function handleCellChange(update: CellValue) {
     setUserValues(prev => {
@@ -93,9 +75,37 @@ export default function PuzzlePlay() {
     flushTimer.current = setTimeout(flushUpdates, 800);
   }
 
-  function formatTime(s: number) {
-    const m = Math.floor(s / 60);
-    return `${m}:${String(s % 60).padStart(2, '0')}`;
+  async function handleReveal() {
+    if (!puzzle || !sessionId) return;
+    const updates: CellValue[] = [];
+    const nextValues = new Map(userValues);
+    const nextCorrect = new Set(correctCells);
+
+    for (const row of puzzle.grid) {
+      for (const cell of row) {
+        if (!cell.blocked && cell.letter) {
+          const k = `${cell.row},${cell.col}`;
+          updates.push({ row: cell.row, col: cell.col, value: cell.letter });
+          nextValues.set(k, cell.letter);
+          nextCorrect.add(k);
+        }
+      }
+    }
+
+    setUserValues(nextValues);
+    setCorrectCells(nextCorrect);
+
+    try {
+      const data = await submitCells(sessionId, updates, puzzle.solution ?? null, userValues);
+      setProgress(p => ({
+        ...p,
+        correct: data.correct_cells,
+        total: data.total_cells,
+        words: data.words_completed,
+        totalWords: data.total_words ?? p.totalWords,
+      }));
+      if (data.completed) { setCompleted(true); setScore(data.score ?? 0); }
+    } catch { /* best-effort */ }
   }
 
   if (!puzzle) return <div className={styles.loading}>ಲೋಡ್ ಆಗುತ್ತಿದೆ...</div>;
@@ -108,9 +118,13 @@ export default function PuzzlePlay() {
           <p className={styles.sub}>{puzzle.title}</p>
         </div>
         <div className={styles.stats}>
-          <span>⏱ {formatTime(elapsed)}</span>
           <span>{progress.correct}/{progress.total} ಅಕ್ಷರ</span>
           <span className={styles.wordStat}>{progress.words}/{progress.totalWords} ಪದ</span>
+          {!completed && (
+            <button className={styles.revealBtn} onClick={handleReveal}>
+              ಉತ್ತರ ತೋರಿಸಿ
+            </button>
+          )}
           {completed && <span className={styles.done}>✅ ಪೂರ್ಣ! ಸ್ಕೋರ್: {score}</span>}
         </div>
       </header>
@@ -121,8 +135,12 @@ export default function PuzzlePlay() {
           <div className={styles.bannerStats}>
             <span>ಸ್ಕೋರ್: <strong>{score}</strong></span>
             <span>ಪದಗಳು: <strong>{progress.words}/{progress.totalWords}</strong></span>
-            <span>ಸಮಯ: <strong>{formatTime(elapsed)}</strong></span>
           </div>
+          {!user && (
+            <div className={styles.bannerCta}>
+              ಸ್ಕೋರ್ ಉಳಿಸಲು <a href="/register">ನೋಂದಾಯಿಸಿ</a> ಅಥವಾ <a href="/login">ಲಾಗಿನ್</a> ಮಾಡಿ
+            </div>
+          )}
         </div>
       )}
 
