@@ -2,8 +2,8 @@ import { pool } from './pool';
 import puzzle6381 from './puzzles/puzzle-6381';
 
 // Puzzle 6381 — 9×9 grid
-// Black cells verified to produce exactly 16 numbered positions matching CLAUDE.md.
-// Numbers: 1@(0,0) 2@(0,2) 3@(0,5) 4@(0,8) 5@(2,0) 6@(2,3) 7@(2,5)
+// Black cells from printed image (ground truth).
+// Numbers: 1@(0,0) 2@(0,2) 3@(0,5) 4@(0,8) 5@(2,0) 6@(2,3) 7@(2,6)
 //          8@(4,2) 9@(4,5) 10@(5,0) 11@(5,8) 12@(6,0) 13@(6,5) 14@(6,6) 15@(8,0) 16@(8,5)
 
 const ROWS = 9;
@@ -12,18 +12,18 @@ const COLS = 9;
 const BLACK = new Set([
   '0,4',
   '1,1','1,3','1,4','1,5','1,6','1,7',
-  '2,4',
+  '2,4','2,5',
   '3,1','3,2','3,4','3,5','3,7',
   '4,0','4,1','4,7','4,8',
-  '5,2','5,6','5,7',
+  '5,1','5,2','5,4','5,6','5,7',
   '6,3','6,4',
-  '7,1','7,4','7,7',
+  '7,1','7,2','7,3','7,4','7,7',
   '8,4',
 ]);
 
 const NUMBERS: Record<string, number> = {
   '0,0': 1, '0,2': 2, '0,5': 3, '0,8': 4,
-  '2,0': 5, '2,3': 6, '2,5': 7,
+  '2,0': 5, '2,3': 6, '2,6': 7,
   '4,2': 8, '4,5': 9,
   '5,0': 10, '5,8': 11,
   '6,0': 12, '6,5': 13, '6,6': 14,
@@ -85,20 +85,19 @@ function buildGridAndClues() {
   const slots = deriveSlots();
   const letterMap = new Map<string, string>();
 
-  // Fill letters from answers using AKSHARA_RE splitting (across wins at intersections)
-  for (const slot of slots) {
+  // Across fills first
+  for (const slot of slots.filter(s => s.direction === 'across')) {
     const key = `${slot.number}-${slot.direction}`;
     const answer = ANSWERS[key] ?? '';
     const aksharas = splitAksharas(answer);
     const limit = LENGTHS[key] ?? slot.cells.length;
     for (let i = 0; i < limit && i < aksharas.length && i < slot.cells.length; i++) {
-      const ck = `${slot.cells[i].row},${slot.cells[i].col}`;
-      if (!letterMap.has(ck)) letterMap.set(ck, aksharas[i]);
+      letterMap.set(`${slot.cells[i].row},${slot.cells[i].col}`, aksharas[i]);
     }
   }
-  // Second pass: down fills cells not already set by across
+  // Down fills remaining empty cells
   for (const slot of slots.filter(s => s.direction === 'down')) {
-    const key = `${slot.number}-down`;
+    const key = `${slot.number}-${slot.direction}`;
     const answer = ANSWERS[key] ?? '';
     const aksharas = splitAksharas(answer);
     const limit = LENGTHS[key] ?? slot.cells.length;
@@ -174,7 +173,7 @@ async function seed6381() {
        VALUES ($1,$2,$3,$4,$5,$6,$7,false)`,
       [
         'Prajavani Crossword 6381',
-        'ಪ್ರಜಾವಾಣಿ ಪದಬಂಧ ೬೩೮೧',
+        'ಪ್ರಜಾವಾಣಿ ಪದಬಂಧ',
         'medium',
         JSON.stringify(grid),
         JSON.stringify(clues),
