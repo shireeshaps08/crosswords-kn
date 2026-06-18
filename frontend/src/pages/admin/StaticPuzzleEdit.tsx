@@ -10,6 +10,7 @@ export default function StaticPuzzleEdit() {
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [clues, setClues] = useState<ClueEntry[]>([]);
   const [gridLetters, setGridLetters] = useState<Map<string, string>>(new Map());
+  const [blockedOverride, setBlockedOverride] = useState<Set<string>>(new Set());
   const [selectedCell, setSelectedCell] = useState<{ row: number; col: number } | null>(null);
   const [direction, setDirection] = useState<'across' | 'down'>('across');
   const [loading, setLoading] = useState(true);
@@ -97,8 +98,24 @@ export default function StaticPuzzleEdit() {
     return cells;
   }
 
+  function isBlocked(cell: GridCell): boolean {
+    const k = `${cell.row},${cell.col}`;
+    return blockedOverride.has(k) ? !cell.blocked : cell.blocked;
+  }
+
+  function handleCellDoubleClick(cell: GridCell) {
+    const k = `${cell.row},${cell.col}`;
+    setBlockedOverride(prev => {
+      const next = new Set(prev);
+      next.has(k) ? next.delete(k) : next.add(k);
+      return next;
+    });
+    setGridLetters(prev => { const n = new Map(prev); n.delete(k); return n; });
+    setSelectedCell(null);
+  }
+
   function handleCellClick(cell: GridCell) {
-    if (cell.blocked) return;
+    if (isBlocked(cell)) return;
     if (selectedCell?.row === cell.row && selectedCell?.col === cell.col) {
       setDirection(d => d === 'across' ? 'down' : 'across');
     } else {
@@ -213,11 +230,12 @@ export default function StaticPuzzleEdit() {
             {puzzle.grid.map((row, ri) =>
               row.map((cell, ci) => {
                 const k = `${ri},${ci}`;
+                const blocked = isBlocked(cell);
                 const isSelected = selectedCell?.row === ri && selectedCell?.col === ci;
                 const isHighlighted = highlighted.has(k);
                 const letter = gridLetters.get(k) ?? '';
                 let bg = '#fff';
-                if (cell.blocked) bg = '#222';
+                if (blocked) bg = '#222';
                 else if (isSelected) bg = '#f9c74f';
                 else if (isHighlighted) bg = '#d0eaff';
 
@@ -225,6 +243,7 @@ export default function StaticPuzzleEdit() {
                   <div
                     key={k}
                     onClick={() => handleCellClick(cell)}
+                    onDoubleClick={() => handleCellDoubleClick(cell)}
                     style={{
                       width: CELL,
                       height: CELL,
@@ -238,12 +257,12 @@ export default function StaticPuzzleEdit() {
                       userSelect: 'none',
                     }}
                   >
-                    {!cell.blocked && cell.number && (
+                    {!blocked && cell.number && (
                       <span style={{ position: 'absolute', top: 1, left: 2, fontSize: 9, lineHeight: 1, color: '#555', fontWeight: 600 }}>
                         {cell.number}
                       </span>
                     )}
-                    {!cell.blocked && (
+                    {!blocked && (
                       <span style={{ fontSize: 18, fontFamily: 'var(--font-kn)', lineHeight: 1 }}>
                         {letter}
                       </span>
