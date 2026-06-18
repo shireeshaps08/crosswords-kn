@@ -106,7 +106,7 @@
           "row": 1,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 1,
@@ -215,13 +215,13 @@
           "row": 3,
           "col": 5,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 3,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 3,
@@ -306,7 +306,7 @@
           "row": 5,
           "col": 1,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 5,
@@ -324,13 +324,13 @@
           "row": 5,
           "col": 4,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
           "col": 5,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 5,
@@ -342,7 +342,7 @@
           "row": 5,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
@@ -458,7 +458,7 @@
           "row": 7,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -562,7 +562,7 @@
           "direction": "across",
           "row": 2,
           "col": 5,
-          "length": 4
+          "length": 3
         },
         {
           "number": 8,
@@ -572,6 +572,15 @@
           "row": 4,
           "col": 2,
           "length": 5
+        },
+        {
+          "number": 10,
+          "clue": "ಮನೆಯನ್ನು ಹೀಗೂ ಹೇಳುತ್ತಾರೆ",
+          "answer": "ವಾಸ",
+          "direction": "across",
+          "row": 5,
+          "col": 0,
+          "length": 3
         },
         {
           "number": 12,
@@ -676,7 +685,7 @@
         },
         {
           "number": 10,
-          "clue": "ಮನೆಯನ್ನು ಹೀಗೂ ಹೇಳುತ್ತಾರೆ",
+          "clue": "ಮನೆಯ ಇನ್ನೊಂದು ಹೆಸರು",
           "answer": "ವಾಸಸ್ಥಾನ",
           "direction": "down",
           "row": 5,
@@ -801,7 +810,7 @@
           "row": 1,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 1,
@@ -906,14 +915,14 @@
         {
           "row": 3,
           "col": 5,
-          "letter": "ಮಾ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 3,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 3,
@@ -994,8 +1003,8 @@
         {
           "row": 5,
           "col": 1,
-          "letter": "",
-          "blocked": true
+          "letter": "ಸ",
+          "blocked": false
         },
         {
           "row": 5,
@@ -1013,13 +1022,13 @@
           "row": 5,
           "col": 4,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
           "col": 5,
-          "letter": "",
-          "blocked": true
+          "letter": "ಯ",
+          "blocked": false
         },
         {
           "row": 5,
@@ -1031,7 +1040,7 @@
           "row": 5,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
@@ -1143,7 +1152,7 @@
           "row": 7,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -1210,6 +1219,6 @@
       ]
     ],
     "created_at": "2024-01-01T00:00:00.000Z",
-    "total_cells": 54
+    "total_cells": 50
   }
 }

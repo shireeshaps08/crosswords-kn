@@ -1,8 +1,8 @@
 {
   "puzzle": {
     "id": "6381",
-    "title": "Puzzle 6381",
-    "title_kn": "ಪದಬಂಧ 6381",
+    "title": "Prajavani Crossword 6381",
+    "title_kn": "ಪ್ರಜಾವಾಣಿ ಪದಬಂಧ ೬೩೮೧",
     "difficulty": "medium",
     "grid": [
       [
@@ -106,7 +106,7 @@
           "row": 1,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 1,
@@ -215,13 +215,13 @@
           "row": 3,
           "col": 5,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 3,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 3,
@@ -306,7 +306,7 @@
           "row": 5,
           "col": 1,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 5,
@@ -428,7 +428,7 @@
           "row": 7,
           "col": 2,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -446,19 +446,19 @@
           "row": 7,
           "col": 5,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
           "col": 6,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 7,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -540,11 +540,11 @@
         {
           "number": 3,
           "clue": "ಒಪ್ಪವಾಗಿ ಬಂದಿರುವ ಸೌಕರ್ಯ",
-          "answer": "ಸೌಲಭ್ಯ",
+          "answer": "ಅನುಕೂಲ",
           "direction": "across",
           "row": 0,
           "col": 5,
-          "length": 3
+          "length": 4
         },
         {
           "number": 5,
@@ -572,6 +572,15 @@
           "row": 4,
           "col": 2,
           "length": 5
+        },
+        {
+          "number": 10,
+          "clue": "ಮನೆಯನ್ನು ಹೀಗೂ ಹೇಳುತ್ತಾರೆ",
+          "answer": "ವಾಸ",
+          "direction": "across",
+          "row": 5,
+          "col": 0,
+          "length": 3
         },
         {
           "number": 12,
@@ -603,7 +612,7 @@
         {
           "number": 16,
           "clue": "ವರ ಪಡೆದಿರುವ ಬೇಡ",
-          "answer": "ವಾಲ್ಮೀಕಿ",
+          "answer": "ವನಚರ",
           "direction": "across",
           "row": 8,
           "col": 5,
@@ -614,7 +623,7 @@
         {
           "number": 1,
           "clue": "ಇನ್ನೂ ಮರಿ! ಈ ಹೆಣ್ಣುದುಂಬಿ!",
-          "answer": "ಮಧುಕರ",
+          "answer": "ಮಧುಕರಿ",
           "direction": "down",
           "row": 0,
           "col": 0,
@@ -632,7 +641,7 @@
         {
           "number": 4,
           "clue": "ಅವಶ್ಯಕ ವಸ್ತು",
-          "answer": "ಆವಶ್ಯಕ",
+          "answer": "ಲವಾಜಮೆ",
           "direction": "down",
           "row": 0,
           "col": 8,
@@ -676,7 +685,7 @@
         },
         {
           "number": 10,
-          "clue": "ಮನೆಯನ್ನು ಹೀಗೂ ಹೇಳುತ್ತಾರೆ",
+          "clue": "ಮನೆಯ ಇನ್ನೊಂದು ಹೆಸರು",
           "answer": "ವಾಸಸ್ಥಾನ",
           "direction": "down",
           "row": 5,
@@ -738,25 +747,25 @@
         {
           "row": 0,
           "col": 5,
-          "letter": "ಸೌ",
+          "letter": "ಅ",
           "blocked": false
         },
         {
           "row": 0,
           "col": 6,
-          "letter": "ಲ",
+          "letter": "ನು",
           "blocked": false
         },
         {
           "row": 0,
           "col": 7,
-          "letter": "ಭ್ಯ",
+          "letter": "ಕೂ",
           "blocked": false
         },
         {
           "row": 0,
           "col": 8,
-          "letter": "ಆ",
+          "letter": "ಲ",
           "blocked": false
         }
       ],
@@ -801,7 +810,7 @@
           "row": 1,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 1,
@@ -812,7 +821,7 @@
         {
           "row": 1,
           "col": 8,
-          "letter": "ವ",
+          "letter": "ವಾ",
           "blocked": false
         }
       ],
@@ -868,7 +877,7 @@
         {
           "row": 2,
           "col": 8,
-          "letter": "ಶ್ಯ",
+          "letter": "ಜ",
           "blocked": false
         }
       ],
@@ -876,7 +885,7 @@
         {
           "row": 3,
           "col": 0,
-          "letter": "ರ",
+          "letter": "ರಿ",
           "blocked": false
         },
         {
@@ -906,14 +915,14 @@
         {
           "row": 3,
           "col": 5,
-          "letter": "ಮಾ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 3,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 3,
@@ -924,7 +933,7 @@
         {
           "row": 3,
           "col": 8,
-          "letter": "ಕ",
+          "letter": "ಮೆ",
           "blocked": false
         }
       ],
@@ -994,8 +1003,8 @@
         {
           "row": 5,
           "col": 1,
-          "letter": "",
-          "blocked": true
+          "letter": "ಸ",
+          "blocked": false
         },
         {
           "row": 5,
@@ -1113,7 +1122,7 @@
           "row": 7,
           "col": 2,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -1131,19 +1140,19 @@
           "row": 7,
           "col": 5,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
           "col": 6,
-          "letter": "",
-          "blocked": true
+          "letter": "ವ",
+          "blocked": false
         },
         {
           "row": 7,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -1186,7 +1195,7 @@
         {
           "row": 8,
           "col": 5,
-          "letter": "ವಾ",
+          "letter": "ವ",
           "blocked": false
         },
         {
@@ -1198,7 +1207,7 @@
         {
           "row": 8,
           "col": 7,
-          "letter": "ಮೀ",
+          "letter": "ಚ",
           "blocked": false
         },
         {
@@ -1210,6 +1219,6 @@
       ]
     ],
     "created_at": "2024-01-01T00:00:00.000Z",
-    "total_cells": 54
+    "total_cells": 50
   }
 }
