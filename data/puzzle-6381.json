@@ -1016,8 +1016,8 @@
         {
           "row": 5,
           "col": 3,
-          "letter": "ರು",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 5,
