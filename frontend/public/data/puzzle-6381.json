@@ -220,8 +220,8 @@
         {
           "row": 3,
           "col": 6,
-          "letter": "ಮಾ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 3,
@@ -278,8 +278,8 @@
         {
           "row": 4,
           "col": 6,
-          "letter": "ಧಿ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 4,
@@ -571,7 +571,7 @@
           "answer": "ನಿರಪರಾಧಿ",
           "row": 4,
           "col": 2,
-          "length": 5
+          "length": 4
         },
         {
           "number": 12,
@@ -646,15 +646,6 @@
           "row": 2,
           "col": 3,
           "length": 4
-        },
-        {
-          "number": 7,
-          "direction": "down",
-          "clue": "ಸತ್ತವರನ್ನು ಹೂಳುವ ಸ್ಥಳ",
-          "answer": "ಸಮಾಧಿ",
-          "row": 2,
-          "col": 6,
-          "length": 3
         },
         {
           "number": 8,
@@ -919,8 +910,8 @@
         {
           "row": 3,
           "col": 6,
-          "letter": "ಮಾ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 3,
@@ -977,8 +968,8 @@
         {
           "row": 4,
           "col": 6,
-          "letter": "ಧಿ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 4,
@@ -1226,6 +1217,6 @@
       ]
     ],
     "created_at": "2024-01-01T00:00:00.000Z",
-    "total_cells": 51
+    "total_cells": 49
   }
 }
