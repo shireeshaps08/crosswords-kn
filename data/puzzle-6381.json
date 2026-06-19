@@ -278,8 +278,8 @@
         {
           "row": 4,
           "col": 6,
-          "letter": "",
-          "blocked": true
+          "letter": "ಧಿ",
+          "blocked": false
         },
         {
           "row": 4,
@@ -317,8 +317,8 @@
         {
           "row": 5,
           "col": 3,
-          "letter": "ರು",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 5,
@@ -376,13 +376,13 @@
           "row": 6,
           "col": 3,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 6,
           "col": 4,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 6,
@@ -401,7 +401,7 @@
           "row": 6,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 6,
@@ -433,7 +433,7 @@
           "row": 7,
           "col": 3,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -444,8 +444,8 @@
         {
           "row": 7,
           "col": 5,
-          "letter": "ಗಾ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 7,
@@ -570,7 +570,7 @@
           "answer": "ನಿರಪರಾಧಿ",
           "row": 4,
           "col": 2,
-          "length": 4
+          "length": 5
         },
         {
           "number": 12,
@@ -579,7 +579,7 @@
           "answer": "ಸಮೀಕ್ಷೆ",
           "row": 6,
           "col": 0,
-          "length": 9
+          "length": 3
         },
         {
           "number": 15,
@@ -632,10 +632,10 @@
           "number": 6,
           "direction": "down",
           "clue": "ವರನಲ್ಲಿ ಪ್ರತಿನಿಧಿ ಕಾಣಿಸಿದನೇ?",
-          "answer": "ವಕ್ತಾರರು",
+          "answer": "ವಕ್ತಾರ",
           "row": 2,
           "col": 3,
-          "length": 7
+          "length": 3
         },
         {
           "number": 8,
@@ -650,10 +650,10 @@
           "number": 9,
           "direction": "down",
           "clue": "ರಾಯರಿಂದ ಬಂದಿರುವ ನಿರೂಪ",
-          "answer": "ರಾಯಸಗಾರ",
+          "answer": "ರಾಯಸ",
           "row": 4,
           "col": 5,
-          "length": 5
+          "length": 3
         },
         {
           "number": 10,
@@ -958,8 +958,8 @@
         {
           "row": 4,
           "col": 6,
-          "letter": "",
-          "blocked": true
+          "letter": "ಧಿ",
+          "blocked": false
         },
         {
           "row": 4,
@@ -997,8 +997,8 @@
         {
           "row": 5,
           "col": 3,
-          "letter": "ರು",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 5,
@@ -1056,13 +1056,13 @@
           "row": 6,
           "col": 3,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 6,
           "col": 4,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 6,
@@ -1081,7 +1081,7 @@
           "row": 6,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 6,
@@ -1113,7 +1113,7 @@
           "row": 7,
           "col": 3,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -1124,8 +1124,8 @@
         {
           "row": 7,
           "col": 5,
-          "letter": "ಗಾ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 7,
@@ -1206,6 +1206,6 @@
       ]
     ],
     "created_at": "2024-01-01T00:00:00.000Z",
-    "total_cells": 52
+    "total_cells": 47
   }
 }
