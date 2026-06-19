@@ -324,13 +324,13 @@
           "row": 5,
           "col": 4,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
           "col": 5,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 5,
@@ -342,7 +342,7 @@
           "row": 5,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
@@ -428,7 +428,7 @@
           "row": 7,
           "col": 2,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 7,
@@ -446,13 +446,13 @@
           "row": 7,
           "col": 5,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 7,
           "col": 6,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -540,11 +540,11 @@
         {
           "number": 3,
           "clue": "ಒಪ್ಪವಾಗಿ ಬಂದಿರುವ ಸೌಕರ್ಯ",
-          "answer": "ಅನುಕೂಲ",
+          "answer": "ಸೌಲಭ್ಯ",
           "direction": "across",
           "row": 0,
           "col": 5,
-          "length": 4
+          "length": 3
         },
         {
           "number": 5,
@@ -562,7 +562,7 @@
           "direction": "across",
           "row": 2,
           "col": 5,
-          "length": 4
+          "length": 3
         },
         {
           "number": 8,
@@ -571,7 +571,7 @@
           "direction": "across",
           "row": 4,
           "col": 2,
-          "length": 5
+          "length": 4
         },
         {
           "number": 12,
@@ -580,16 +580,7 @@
           "direction": "across",
           "row": 6,
           "col": 0,
-          "length": 3
-        },
-        {
-          "number": 13,
-          "clue": "ಪರಸ್ಪರ ಸಹಾಯ",
-          "answer": "ಸಹಕಾರ",
-          "direction": "across",
-          "row": 6,
-          "col": 5,
-          "length": 4
+          "length": 9
         },
         {
           "number": 15,
@@ -603,7 +594,7 @@
         {
           "number": 16,
           "clue": "ವರ ಪಡೆದಿರುವ ಬೇಡ",
-          "answer": "ವನಚರ",
+          "answer": "ವಾಲ್ಮೀಕಿ",
           "direction": "across",
           "row": 8,
           "col": 5,
@@ -641,11 +632,11 @@
         {
           "number": 6,
           "clue": "ವರನಲ್ಲಿ ಪ್ರತಿನಿಧಿ ಕಾಣಿಸಿದನೇ?",
-          "answer": "ವಕ್ತಾರ",
+          "answer": "ವಕ್ತಾರರು",
           "direction": "down",
           "row": 2,
           "col": 3,
-          "length": 3
+          "length": 7
         },
         {
           "number": 7,
@@ -668,15 +659,15 @@
         {
           "number": 9,
           "clue": "ರಾಯರಿಂದ ಬಂದಿರುವ ನಿರೂಪ",
-          "answer": "ರಾಯಸ",
+          "answer": "ರಾಯಸಗಾರ",
           "direction": "down",
           "row": 4,
           "col": 5,
-          "length": 3
+          "length": 5
         },
         {
           "number": 10,
-          "clue": "ಮನೆಯನ್ನು ಹೀಗೂ ಹೇಳುತ್ತಾರೆ",
+          "clue": "ಮನೆಯ ಇನ್ನೊಂದು ಹೆಸರು",
           "answer": "ವಾಸಸ್ಥಾನ",
           "direction": "down",
           "row": 5,
@@ -691,6 +682,15 @@
           "row": 5,
           "col": 8,
           "length": 4
+        },
+        {
+          "number": 13,
+          "clue": "ಮುಂದಿನ ಸಾಲು",
+          "answer": "ಮುಂದಿನ",
+          "direction": "down",
+          "row": 6,
+          "col": 5,
+          "length": 3
         },
         {
           "number": 14,
@@ -738,19 +738,19 @@
         {
           "row": 0,
           "col": 5,
-          "letter": "ಅ",
+          "letter": "ಸೌ",
           "blocked": false
         },
         {
           "row": 0,
           "col": 6,
-          "letter": "ನು",
+          "letter": "ಲ",
           "blocked": false
         },
         {
           "row": 0,
           "col": 7,
-          "letter": "ಕೂ",
+          "letter": "ಭ್ಯ",
           "blocked": false
         },
         {
@@ -968,7 +968,7 @@
         {
           "row": 4,
           "col": 6,
-          "letter": "ಧಿ",
+          "letter": "",
           "blocked": false
         },
         {
@@ -1013,13 +1013,13 @@
           "row": 5,
           "col": 4,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
           "col": 5,
-          "letter": "",
-          "blocked": true
+          "letter": "ಯ",
+          "blocked": false
         },
         {
           "row": 5,
@@ -1031,7 +1031,7 @@
           "row": 5,
           "col": 7,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 5,
@@ -1086,7 +1086,7 @@
         {
           "row": 6,
           "col": 7,
-          "letter": "ಕಾ",
+          "letter": "",
           "blocked": false
         },
         {
@@ -1113,7 +1113,7 @@
           "row": 7,
           "col": 2,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 7,
@@ -1130,14 +1130,14 @@
         {
           "row": 7,
           "col": 5,
-          "letter": "",
-          "blocked": true
+          "letter": "ಗಾ",
+          "blocked": false
         },
         {
           "row": 7,
           "col": 6,
-          "letter": "ವ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 7,
@@ -1186,19 +1186,19 @@
         {
           "row": 8,
           "col": 5,
-          "letter": "ವ",
+          "letter": "ವಾ",
           "blocked": false
         },
         {
           "row": 8,
           "col": 6,
-          "letter": "ನ",
+          "letter": "ಲ್ಮೀ",
           "blocked": false
         },
         {
           "row": 8,
           "col": 7,
-          "letter": "ಚ",
+          "letter": "ಕಿ",
           "blocked": false
         },
         {

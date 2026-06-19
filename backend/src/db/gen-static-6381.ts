@@ -13,13 +13,13 @@ type Cell = { row: number; col: number; letter: string; blocked: boolean; number
 // Correct black cells — verified to produce exactly 16 numbered positions matching CLAUDE.md
 const blockedPairs: [number, number][] = [
   [0,4],
-  [1,1],[1,3],[1,4],[1,5],[1,6],[1,7],
+  [1,1],[1,3],[1,4],[1,5],[1,7],
   [2,4],
-  [3,1],[3,2],[3,4],[3,5],[3,6],[3,7],
+  [3,1],[3,2],[3,4],[3,7],
   [4,0],[4,1],[4,7],[4,8],
-  [5,3],[5,4],[5,6],[5,7],
+  [5,1],[5,3],[5,4],[5,6],[5,7],
   [6,3],[6,4],
-  [7,1],[7,2],[7,3],[7,4],[7,5],[7,7],
+  [7,1],[7,3],[7,4],[7,6],
   [8,4],
 ];
 const blockedSet = new Set(blockedPairs.map(([r, c]) => `${r},${c}`));
@@ -68,26 +68,25 @@ for (const [r, c, n] of numbers) grid[r][c].number = n;
 const clues = {
   across: [
     { number:1,  clue:'ಮನದೊಳಗಿರುವ ವಂಶ!',                         answer:'ಮನೆತನ',     direction:'across', row:0, col:0, length:4 },
-    { number:3,  clue:'ಒಪ್ಪವಾಗಿ ಬಂದಿರುವ ಸೌಕರ್ಯ',                 answer:'ಅನುಕೂಲ',    direction:'across', row:0, col:5, length:4 },
+    { number:3,  clue:'ಒಪ್ಪವಾಗಿ ಬಂದಿರುವ ಸೌಕರ್ಯ',                 answer:'ಸೌಲಭ್ಯ',    direction:'across', row:0, col:5, length:3 },
     { number:5,  clue:'ಮಧುರವಾದ ಧ್ವನಿ',                            answer:'ಕಲರವ',      direction:'across', row:2, col:0, length:4 },
-    { number:7,  clue:'ಸ್ವಾಭಾವಿಕ ವಾದುದು ಸಜದಲ್ಲಿದೆ!',              answer:'ಸಹಜ',       direction:'across', row:2, col:5, length:3 }, // 4th cell (2,8) filled by 4-down
-    { number:8,  clue:'ಯಾವುದೇ ಅಪರಾಧವನ್ನು ಮಾಡದಿರುವವನು',            answer:'ನಿರಪರಾಧಿ',  direction:'across', row:4, col:2, length:5 },
-    { number:10, clue:'ಮನೆಯನ್ನು ಹೀಗೂ ಹೇಳುತ್ತಾರೆ',                answer:'ವಾಸ',       direction:'across', row:5, col:0, length:3 },
-    { number:12, clue:'ಸೂಕ್ಷ್ಮವಾದ ಪರಿಶೀಲನೆ',                      answer:'ಸಮೀಕ್ಷೆ',   direction:'across', row:6, col:0, length:3 },
-    { number:13, clue:'ಪರಸ್ಪರ ಸಹಾಯ',                              answer:'ಸಹಕಾರ',     direction:'across', row:6, col:5, length:4 },
+    { number:7,  clue:'ಸ್ವಾಭಾವಿಕ ವಾದುದು ಸಜದಲ್ಲಿದೆ!',              answer:'ಸಹಜ',       direction:'across', row:2, col:5, length:3 },
+    { number:8,  clue:'ಯಾವುದೇ ಅಪರಾಧವನ್ನು ಮಾಡದಿರುವವನು',            answer:'ನಿರಪರಾಧಿ',  direction:'across', row:4, col:2, length:4 },
+    { number:12, clue:'ಸೂಕ್ಷ್ಮವಾದ ಪರಿಶೀಲನೆ',                      answer:'ಸಮೀಕ್ಷೆ',   direction:'across', row:6, col:0, length:9 },
     { number:15, clue:'ಅದೇ ತಾನೇ ಕಡೆದ ಹೊಸಬೆಣ್ಣೆ',                  answer:'ನವನೀತ',     direction:'across', row:8, col:0, length:4 },
-    { number:16, clue:'ವರ ಪಡೆದಿರುವ ಬೇಡ',                          answer:'ವನಚರ',      direction:'across', row:8, col:5, length:4 },
+    { number:16, clue:'ವರ ಪಡೆದಿರುವ ಬೇಡ',                          answer:'ವಾಲ್ಮೀಕಿ',  direction:'across', row:8, col:5, length:4 },
   ],
   down: [
     { number:1,  clue:'ಇನ್ನೂ ಮರಿ! ಈ ಹೆಣ್ಣುದುಂಬಿ!',                answer:'ಮಧುಕರಿ',   direction:'down', row:0, col:0, length:4 },
     { number:2,  clue:'ತವರಿನವರು ನೀಡಿರುವ ಲೋಹ',                    answer:'ತವರ',       direction:'down', row:0, col:2, length:3 },
     { number:4,  clue:'ಅವಶ್ಯಕ ವಸ್ತು',                             answer:'ಲವಾಜಮೆ',   direction:'down', row:0, col:8, length:4 },
-    { number:6,  clue:'ವರನಲ್ಲಿ ಪ್ರತಿನಿಧಿ ಕಾಣಿಸಿದನೇ?',              answer:'ವಕ್ತಾರ',   direction:'down', row:2, col:3, length:3 },
+    { number:6,  clue:'ವರನಲ್ಲಿ ಪ್ರತಿನಿಧಿ ಕಾಣಿಸಿದನೇ?',              answer:'ವಕ್ತಾರರು',  direction:'down', row:2, col:3, length:7 },
     { number:7,  clue:'ಸತ್ತವರನ್ನು ಹೂಳುವ ಸ್ಥಳ',                    answer:'ಸಮಾಧಿ',    direction:'down', row:2, col:5, length:3 },
     { number:8,  clue:'ಪರೀಕ್ಷೆಯನ್ನು ಎದುರು ನೋಡುವುದು!',              answer:'ನಿರೀಕ್ಷೆ', direction:'down', row:4, col:2, length:3 },
-    { number:9,  clue:'ರಾಯರಿಂದ ಬಂದಿರುವ ನಿರೂಪ',                    answer:'ರಾಯಸ',     direction:'down', row:4, col:5, length:3 }, // slot col5 rows 4-6
+    { number:9,  clue:'ರಾಯರಿಂದ ಬಂದಿರುವ ನಿರೂಪ',                    answer:'ರಾಯಸಗಾರ',  direction:'down', row:4, col:5, length:5 },
     { number:10, clue:'ಮನೆಯ ಇನ್ನೊಂದು ಹೆಸರು',                      answer:'ವಾಸಸ್ಥಾನ', direction:'down', row:5, col:0, length:4 },
     { number:11, clue:'ಪುರದಲ್ಲಿ ದೊರೆತ ಸನ್ಮಾನ',                    answer:'ಪುರಸ್ಕಾರ', direction:'down', row:5, col:8, length:4 },
+    { number:13, clue:'ಮುಂದಿನ ಸಾಲು',                               answer:'ಮುಂದಿನ',   direction:'down', row:6, col:5, length:3 },
     { number:14, clue:'ವನದ ಕೊನೆಗೆ ಮಾಡಿದ ಯಜ್ಞ',                    answer:'ಹವನ',       direction:'down', row:6, col:6, length:3 },
   ],
 };
