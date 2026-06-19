@@ -1192,19 +1192,19 @@
         {
           "row": 8,
           "col": 6,
-          "letter": "ಲ್ಮೀ",
+          "letter": "ಲ್",
           "blocked": false
         },
         {
           "row": 8,
           "col": 7,
-          "letter": "ಕಿ",
+          "letter": "ಮೀ",
           "blocked": false
         },
         {
           "row": 8,
           "col": 8,
-          "letter": "ರ",
+          "letter": "ಕಿ",
           "blocked": false
         }
       ]

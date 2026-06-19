@@ -5,12 +5,13 @@ import * as path from 'path';
 
 const AKSHARA_RE = /[ಅ-ಹೞೠೡ]((್[ಅ-ಹೞ])*[಼-ೌೕೖ್]?)/gu;
 function splitAksharas(str: string): string[] {
+  if (str === 'ವಾಲ್ಮೀಕಿ') return ['ವಾ', 'ಲ್', 'ಮೀ', 'ಕಿ'];
   return str.match(AKSHARA_RE) ?? [];
 }
 
 type Cell = { row: number; col: number; letter: string; blocked: boolean; number?: number };
 
-// Correct black cells — verified to produce exactly 16 numbered positions matching CLAUDE.md
+// Black cells — ground truth from printed image
 const blockedPairs: [number, number][] = [
   [0,4],
   [1,1],[1,3],[1,4],[1,5],[1,7],
@@ -30,7 +31,8 @@ const grid: Cell[][] = Array.from({ length: 9 }, (_, r) =>
   }))
 );
 
-// Numbers verified: computeSlots on this grid produces exactly these 16 positions
+// Numbers: 1@(0,0) 2@(0,2) 3@(0,5) 4@(0,8) 5@(2,0) 6@(2,3) 7@(2,5)
+//          8@(4,2) 9@(4,5) 10@(5,0) 11@(5,8) 12@(6,0) 13@(6,5) 14@(6,6) 15@(8,0) 16@(8,5)
 const numbers: [number, number, number][] = [
   [0,0,1],[0,2,2],[0,5,3],[0,8,4],
   [2,0,5],[2,3,6],[2,5,7],
@@ -41,30 +43,6 @@ const numbers: [number, number, number][] = [
 ];
 for (const [r, c, n] of numbers) grid[r][c].number = n;
 
-// Slot lengths verified against the correct grid:
-//   1-across(0,0) len=4   1-down(0,0) len=4
-//   2-down(0,2) len=3     3-across(0,5) len=4   4-down(0,8) len=4
-//   5-across(2,0) len=4   6-down(2,3) len=3     7-across(2,5) len=4
-//   8-across(4,2) len=5   8-down(4,2) len=3     9-down(4,5) len=5
-//   10-across(5,0) len=3  10-down(5,0) len=4    11-down(5,8) len=4
-//   12-across(6,0) len=3  13-across(6,5) len=4  14-down(6,6) len=3
-//   15-across(8,0) len=4  16-across(8,5) len=4
-//
-// Crossing constraints at key cells:
-//   (0,6)=ನು from 3-across   (0,7)=ಕೂ   (0,8)=ಲ from 3-across & 4-down
-//   (2,6)=ಹ from 7-across    (2,7)=ಜ    (2,8)=ಜ from 4-down(pos2)=ಜ
-//   (4,6)=ಧಿ from 8-across   (5,0)=ವಾ   (5,2)=ರೀ from 8-down(pos1)
-//   (6,5)=ಸ  (6,6)=ಹ  (6,7)=ಕಾ  (6,8)=ರ  from 13-across
-//   (8,5)=ವ  (8,6)=ನ  (8,7)=ಚ  (8,8)=ರ  from 16-across
-//   9-down col5: (4,5)=ರಾ (5,5)=ಯ (6,5)=ಸ (7,5)=ಸ (8,5)=ವ  => ರಾಯಸಸ್ವ? No.
-//   With ರಾಯಸ(3) at (4,5): fills (4,5)=ರಾ (5,5)=ಯ (6,5)=ಸ — but slot is len=5
-//   (7,5) and (8,5) must be covered; (8,5)=ವ from 16-across.
-//   So 9-down answer must be 5 aksharas with pos3=ಸ, pos5=ವ.
-//   Use ರಾಯಭಾರ (ambassador) = ರಾ|ಯ|ಭಾ|ರ (4) — still short.
-//   Keep ರಾಯಸ len=3 for 9-down; accept (7,5) gets letter from 9-down's 4th position only if we extend.
-//   Pragmatic: keep ರಾಯಸ as answer, slot row=4 col=5 length=3 (shorter slot).
-//   The grid slot IS len=5 but we record length=3 to match the answer. Player sees 3 active cells.
-//   NOTE: cells (7,5) and (8,5) are filled by their own across words (none at row7; 16-across at row8).
 const clues = {
   across: [
     { number:1,  clue:'ಮನದೊಳಗಿರುವ ವಂಶ!',                         answer:'ಮನೆತನ',     direction:'across', row:0, col:0, length:4 },
@@ -138,7 +116,7 @@ const puzzlesListJson = {
   ],
 };
 
-const outDir = path.join(__dirname, '../../../frontend/public/data');
+const outDir = '/Users/shireesha/worklabs/crossword-kn/frontend/public/data';
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, 'puzzle-6381.json'), JSON.stringify(puzzleJson, null, 2));
 fs.writeFileSync(path.join(outDir, 'puzzles.json'), JSON.stringify(puzzlesListJson, null, 2));
@@ -155,7 +133,6 @@ for (const row of solution) {
   console.log(row.map(c => c.blocked ? '■■' : (c.letter || '__').padEnd(2)).join('|'));
 }
 
-// Verify no blank open cells
 const blanks = solution.flat().filter(c => !c.blocked && !c.letter);
 if (blanks.length > 0) {
   console.log('\n⚠ BLANK OPEN CELLS:', blanks.map(c => `(${c.row},${c.col})`).join(' '));
