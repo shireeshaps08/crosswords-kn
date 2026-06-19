@@ -401,8 +401,7 @@
           "row": 6,
           "col": 7,
           "letter": "",
-          "blocked": false,
-          "number": 14
+          "blocked": false
         },
         {
           "row": 6,
@@ -446,7 +445,7 @@
           "row": 7,
           "col": 5,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -458,8 +457,7 @@
           "row": 7,
           "col": 7,
           "letter": "",
-          "blocked": false,
-          "number": 15
+          "blocked": true
         },
         {
           "row": 7,
@@ -474,7 +472,7 @@
           "col": 0,
           "letter": "",
           "blocked": false,
-          "number": 16
+          "number": 14
         },
         {
           "row": 8,
@@ -505,7 +503,7 @@
           "col": 5,
           "letter": "",
           "blocked": false,
-          "number": 17
+          "number": 15
         },
         {
           "row": 8,
@@ -593,16 +591,7 @@
           "length": 4
         },
         {
-          "number": 15,
-          "clue": "ಅದೇ ತಾನೇ ಕಡೆದ ಹೊಸಬೆಣ್ಣೆ",
-          "answer": "ನವನೀತ",
-          "direction": "across",
-          "row": 7,
-          "col": 7,
-          "length": 2
-        },
-        {
-          "number": 16,
+          "number": 14,
           "clue": "ಅದೇ ತಾನೇ ಕಡೆದ ಹೊಸಬೆಣ್ಣೆ",
           "answer": "ನವನೀತ",
           "direction": "across",
@@ -611,7 +600,7 @@
           "length": 4
         },
         {
-          "number": 17,
+          "number": 15,
           "clue": "ವರ ಪಡೆದಿರುವ ಬೇಡ",
           "answer": "ವಾಲ್ಮೀಕಿ",
           "direction": "across",
@@ -701,15 +690,6 @@
           "row": 5,
           "col": 8,
           "length": 4
-        },
-        {
-          "number": 14,
-          "clue": "ವನದ ಕೊನೆಗೆ ಮಾಡಿದ ಯಜ್ಞ",
-          "answer": "ಹವನ",
-          "direction": "down",
-          "row": 6,
-          "col": 7,
-          "length": 3
         }
       ]
     },
@@ -1141,7 +1121,7 @@
           "row": 7,
           "col": 5,
           "letter": "",
-          "blocked": false
+          "blocked": true
         },
         {
           "row": 7,
@@ -1152,13 +1132,13 @@
         {
           "row": 7,
           "col": 7,
-          "letter": "ನ",
-          "blocked": false
+          "letter": "",
+          "blocked": true
         },
         {
           "row": 7,
           "col": 8,
-          "letter": "ವ",
+          "letter": "ಸ್ಕಾ",
           "blocked": false
         }
       ],
@@ -1220,6 +1200,6 @@
       ]
     ],
     "created_at": "2024-01-01T00:00:00.000Z",
-    "total_cells": 50
+    "total_cells": 48
   }
 }
