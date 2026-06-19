@@ -376,20 +376,19 @@
           "row": 6,
           "col": 3,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 6,
           "col": 4,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 6,
           "col": 5,
           "letter": "ಸ",
-          "blocked": false,
-          "number": 13
+          "blocked": false
         },
         {
           "row": 6,
@@ -401,7 +400,7 @@
         {
           "row": 6,
           "col": 7,
-          "letter": "ಕಾ",
+          "letter": "",
           "blocked": false
         },
         {
@@ -434,7 +433,7 @@
           "row": 7,
           "col": 3,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 7,
@@ -580,16 +579,7 @@
           "answer": "ಸಮೀಕ್ಷೆ",
           "row": 6,
           "col": 0,
-          "length": 3
-        },
-        {
-          "number": 13,
-          "direction": "across",
-          "clue": "ಪರಸ್ಪರ ಸಹಾಯ",
-          "answer": "ಸಹಕಾರ",
-          "row": 6,
-          "col": 5,
-          "length": 4
+          "length": 9
         },
         {
           "number": 15,
@@ -645,7 +635,7 @@
           "answer": "ವಕ್ತಾರರು",
           "row": 2,
           "col": 3,
-          "length": 4
+          "length": 7
         },
         {
           "number": 8,
@@ -1066,20 +1056,19 @@
           "row": 6,
           "col": 3,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 6,
           "col": 4,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 6,
           "col": 5,
           "letter": "ಸ",
-          "blocked": false,
-          "number": 13
+          "blocked": false
         },
         {
           "row": 6,
@@ -1091,7 +1080,7 @@
         {
           "row": 6,
           "col": 7,
-          "letter": "ಕಾ",
+          "letter": "",
           "blocked": false
         },
         {
@@ -1124,7 +1113,7 @@
           "row": 7,
           "col": 3,
           "letter": "",
-          "blocked": true
+          "blocked": false
         },
         {
           "row": 7,
@@ -1217,6 +1206,6 @@
       ]
     ],
     "created_at": "2024-01-01T00:00:00.000Z",
-    "total_cells": 49
+    "total_cells": 52
   }
 }
