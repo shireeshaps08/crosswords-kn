@@ -20,7 +20,7 @@ const blockedPairs: [number, number][] = [
   [4,0],[4,1],[4,7],[4,8],
   [5,1],[5,3],[5,4],[5,6],[5,7],
   [6,3],[6,4],
-  [7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7],
+  [7,1],[7,2],[7,3],[7,4],[7,5],[7,7],
   [8,4],
 ];
 const blockedSet = new Set(blockedPairs.map(([r, c]) => `${r},${c}`));
@@ -36,15 +36,15 @@ const grid: Cell[][] = Array.from({ length: 9 }, (_, r) =>
 // 5@(2,0)A    6@(2,3)D  7@(2,6)A+D
 // 8@(4,2)A+D  9@(4,5)D
 // 10@(5,0)D   11@(5,8)D
-// 12@(6,0)A   13@(6,5)A
-// 14@(8,0)A   15@(8,5)A
+// 12@(6,0)A   13@(6,5)A  14@(6,6)D
+// 15@(8,0)A   16@(8,5)A
 const numbers: [number, number, number][] = [
   [0,0,1],[0,2,2],[0,5,3],[0,8,4],
   [2,0,5],[2,3,6],[2,6,7],
   [4,2,8],[4,5,9],
   [5,0,10],[5,8,11],
-  [6,0,12],[6,5,13],
-  [8,0,14],[8,5,15],
+  [6,0,12],[6,5,13],[6,6,14],
+  [8,0,15],[8,5,16],
 ];
 for (const [r, c, n] of numbers) grid[r][c].number = n;
 
@@ -57,8 +57,8 @@ const clues = {
     { number:8,  clue:'ಯಾವುದೇ ಅಪರಾಧವನ್ನು ಮಾಡದಿರುವವನು',            answer:'ನಿರಪರಾಧಿ',  direction:'across', row:4, col:2, length:4 },
     { number:12, clue:'ಸೂಕ್ಷ್ಮವಾದ ಪರಿಶೀಲನೆ',                      answer:'ಸಮೀಕ್ಷೆ',   direction:'across', row:6, col:0, length:5 },
     { number:13, clue:'ಪರಸ್ಪರ ಸಹಾಯ',                              answer:'ಸಹಕಾರ',     direction:'across', row:6, col:5, length:4 },
-    { number:14, clue:'ಅದೇ ತಾನೇ ಕಡೆದ ಹೊಸಬೆಣ್ಣೆ',                  answer:'ನವನೀತ',     direction:'across', row:8, col:0, length:4 },
-    { number:15, clue:'ವರ ಪಡೆದಿರುವ ಬೇಡ',                          answer:'ವಾಲ್ಮೀಕಿ',  direction:'across', row:8, col:5, length:4 },
+    { number:15, clue:'ಅದೇ ತಾನೇ ಕಡೆದ ಹೊಸಬೆಣ್ಣೆ',                  answer:'ನವನೀತ',     direction:'across', row:8, col:0, length:4 },
+    { number:16, clue:'ವರ ಪಡೆದಿರುವ ಬೇಡ',                          answer:'ವಾಲ್ಮೀಕಿ',  direction:'across', row:8, col:5, length:4 },
   ],
   down: [
     { number:1,  clue:'ಇನ್ನೂ ಮರಿ! ಈ ಹೆಣ್ಣುದುಂಬಿ!',                answer:'ಮಧುಕರಿ',   direction:'down', row:0, col:0, length:4 },
@@ -68,6 +68,7 @@ const clues = {
     { number:7,  clue:'ಸತ್ತವರನ್ನು ಹೂಳುವ ಸ್ಥಳ',                    answer:'ಸಮಾಧಿ',    direction:'down', row:2, col:6, length:3 },
     { number:8,  clue:'ಪರೀಕ್ಷೆಯನ್ನು ಎದುರು ನೋಡುವುದು!',              answer:'ನಿರೀಕ್ಷೆ', direction:'down', row:4, col:2, length:3 },
     { number:9,  clue:'ರಾಯರಿಂದ ಬಂದಿರುವ ನಿರೂಪ',                    answer:'ರಾಯಸಗಾರ',  direction:'down', row:4, col:5, length:3 },
+    { number:14, clue:'ವನದ ಕೊನೆಗೆ ಮಾಡಿದ ಯಜ್ಞ',                    answer:'ಹವನ',       direction:'down', row:6, col:6, length:3 },
     { number:10, clue:'ಮನೆಯ ಇನ್ನೊಂದು ಹೆಸರು',                      answer:'ವಾಸಸ್ಥಾನ', direction:'down', row:5, col:0, length:4 },
     { number:11, clue:'ಪುರದಲ್ಲಿ ದೊರೆತ ಸನ್ಮಾನ',                    answer:'ಪುರಸ್ಕಾರ', direction:'down', row:5, col:8, length:4 },
   ],
